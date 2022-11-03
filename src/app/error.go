@@ -1,6 +1,8 @@
 package app
 
 import (
+	"bytes"
+	"encoding/json"
 	"gopkg.in/yaml.v3"
 	"io/ioutil"
 )
@@ -16,6 +18,15 @@ type Error struct {
 
 func (e Error) Error() string {
 	return e.Message
+}
+
+func (e Error) ToJSON() (string, error) {
+	f := new(bytes.Buffer)
+	err := json.NewEncoder(f).Encode(e)
+	if err != nil {
+		return "", err
+	}
+	return f.String(), nil
 }
 
 func LoadErr(url string) (map[string]map[string]Error, error) {

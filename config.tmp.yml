@@ -1,0 +1,4 @@
+app:
+  grpcAddress: 0.0.0.0:20000
+  env: development
+  httpAddress: 0.0.0.0:21000

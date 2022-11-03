@@ -15,5 +15,6 @@ func New(ctx context.Context) *transport {
 }
 
 func (t *transport) Register(ctx context.Context, request *authpb.RegisterRequest) (*authpb.RegisterResponse, error) {
-	return nil, err.General.BadRequest
+	panic(errpkg.General.BadRequest)
+	return nil, errpkg.General.BadRequest
 }

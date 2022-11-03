@@ -1,18 +1,17 @@
-package err
+package errpkg
 
 import (
 	"gopkg.in/yaml.v2"
-	"io/ioutil"
 	"log"
+	"os"
 )
-
 
 var General *general
 
 func LoadError() {
 	root := rootErr{}
 
-	file, err := ioutil.ReadFile("error.yaml")
+	file, err := os.ReadFile("error.yml")
 
 	if err != nil {
 		log.Fatalln("error load error", err)
@@ -25,6 +24,6 @@ func LoadError() {
 	}
 
 	//General = root.General
-	
-    General = root.General 
+
+	General = root.General
 }

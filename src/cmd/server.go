@@ -2,20 +2,19 @@ package cmd
 
 import (
 	"context"
-	"encoding/json"
 	"fmt"
 	grpc_middleware "github.com/grpc-ecosystem/go-grpc-middleware"
 	grpc_zap "github.com/grpc-ecosystem/go-grpc-middleware/logging/zap"
+	grpc_recovery "github.com/grpc-ecosystem/go-grpc-middleware/recovery"
 	"github.com/grpc-ecosystem/grpc-gateway/v2/runtime"
 	"github.com/spf13/cobra"
 	"go.uber.org/zap"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials/insecure"
 	"google.golang.org/grpc/reflection"
-	"google.golang.org/grpc/status"
 	"myclass_service/src/config"
+	"myclass_service/src/middlewares"
 	"myclass_service/src/packages/err"
-	authpb "myclass_service/src/pb/auth"
 	"myclass_service/src/routes"
 	"net"
 	"net/http"
@@ -24,13 +23,11 @@ import (
 	"sync"
 )
 
-type handler = func(ctx context.Context, mux *runtime.ServeMux, conn *grpc.ClientConn) error
-
 func server(config config.IConfig) *cobra.Command {
 	return &cobra.Command{
 		Use: "server",
 		Run: func(cmd *cobra.Command, args []string) {
-			err.LoadError()
+			errpkg.LoadError()
 			ctx, cancel := context.WithCancel(context.Background())
 			defer cancel()
 
@@ -46,8 +43,10 @@ func server(config config.IConfig) *cobra.Command {
 }
 
 func runGrpc(ctx context.Context, config config.IConfig, wg *sync.WaitGroup) {
+
 	server := grpc.NewServer(grpc.UnaryInterceptor(grpc_middleware.ChainUnaryServer(
 		grpc_zap.UnaryServerInterceptor(zap.L()),
+		grpc_recovery.UnaryServerInterceptor([]grpc_recovery.Option{grpc_recovery.WithRecoveryHandlerContext(middlewares.HandleGrpcError)}...),
 	)))
 	reflection.Register(server)
 
@@ -80,32 +79,12 @@ func runGateway(ctx context.Context, config config.IConfig, wg *sync.WaitGroup) 
 	if err != nil {
 		zap.S().Fatalln(err)
 	}
-	gw := runtime.NewServeMux(runtime.WithErrorHandler(func(ctx context.Context, mux *runtime.ServeMux, marshaler runtime.Marshaler, writer http.ResponseWriter, request *http.Request, err error) {
+	gw := runtime.NewServeMux(runtime.WithErrorHandler(middlewares.HandleError))
 
-		s := status.Convert(err)
-		zap.S().Error(s.Details())
-		writer.Header().Set("Content-Type", "application/json")
-		writer.WriteHeader(http.StatusInternalServerError)
-		type Response struct {
-			Message string `json:"message"`
-		}
-		resp := Response{
-			Message: err.Error(),
-		}
-		json.NewEncoder(writer).Encode(resp)
-	}))
-
-	lists := []handler{authpb.RegisterAuthServiceHandler}
-
-	for _, item := range lists {
-		err = item(ctx, gw, conn)
-		if err != nil {
-			zap.S().Fatalln(err)
-		}
-	}
+	routes.RouteGw(ctx, gw, conn)
 
 	gwServer := &http.Server{
-		Addr:    ":21000",
+		Addr:    config.GetHttpAddress(),
 		Handler: gw,
 	}
 
