@@ -7,7 +7,9 @@ import (
 	"google.golang.org/grpc"
 	auth_transport "myclass_service/src/features/auth/transport"
 	media_transport "myclass_service/src/features/media/transport"
+	media_usecase "myclass_service/src/features/media/usecase"
 	authpb "myclass_service/src/pb/auth"
+	storage_service "myclass_service/src/services/storage"
 	"net/http"
 )
 
@@ -29,7 +31,9 @@ func RouteGw(ctx context.Context, gw *runtime.ServeMux, conn *grpc.ClientConn) {
 		}
 	}
 
-	mediaTransport := media_transport.New(ctx)
+	storageService := storage_service.New("fs", "src/storage")
+	mediaUsecase := media_usecase.New(storageService)
+	mediaTransport := media_transport.New(ctx, mediaUsecase)
 
 	gw.HandlePath(http.MethodPost, "/api/v1/media/upload", mediaTransport.Upload)
 }
