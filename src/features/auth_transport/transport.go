@@ -2,8 +2,7 @@ package auth_transport
 
 import (
 	"context"
-	"errors"
-	"github.com/grpc-ecosystem/grpc-gateway/v2/runtime"
+	"myclass_service/src/packages/err"
 	authpb "myclass_service/src/pb/auth"
 )
 
@@ -16,8 +15,5 @@ func New(ctx context.Context) *transport {
 }
 
 func (t *transport) Register(ctx context.Context, request *authpb.RegisterRequest) (*authpb.RegisterResponse, error) {
-	return nil, runtime.HTTPStatusError{
-		HTTPStatus: 400,
-		Err:        errors.New("abc"),
-	}.Err
+	return nil, err.General.BadRequest
 }

@@ -10,6 +10,7 @@ type structure struct {
 	App struct {
 		Env         string `mapstructure:"env"`
 		GrpcAddress string `mapstructure:"grpcAddress"`
+		HttpAddress string `mapstructure:"httpAddress"`
 	} `mapstructure:"app"`
 }
 
