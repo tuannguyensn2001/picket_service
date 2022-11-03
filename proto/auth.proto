@@ -1,0 +1,25 @@
+syntax = "proto3";
+
+package auth;
+
+option go_package = "./authpb";
+import "google/api/annotations.proto";
+
+message RegisterRequest {
+  string username = 1;
+  string email = 2;
+  string password = 3;
+}
+
+message RegisterResponse {
+  string message = 1;
+}
+
+service AuthService {
+  rpc Register(RegisterRequest) returns(RegisterResponse){
+    option(google.api.http) = {
+      post: "/api/v1/auth/register",
+      body: "*"
+    };
+  }
+}

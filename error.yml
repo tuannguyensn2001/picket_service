@@ -1,0 +1,22 @@
+general:
+    internal:
+        code: 5
+        message: internal server rerror
+        statusCode: 500
+        grpcCode: 500
+    forbidden:
+        code: 1
+        message: Forbidden
+        statusCode: 403
+        grpcCode: 0
+    badRequest:
+        code: 2
+        message: Data not valid
+        statusCode: 400
+        grpcCode: 0
+    unauthorized:
+        code: 3
+        message: unauthorized
+        statusCode: 3
+        grpcCode: 0
+    

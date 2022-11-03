@@ -1,0 +1,10 @@
+package {{ .PackageName}}
+
+import "myclass_service/src/app"
+
+{{range .Elements}}
+type {{ .Name}} struct {
+  {{range .Fields}}
+  {{ .Name}}        {{ .Type}}            `yaml:"{{ .YmlTag}}"`  {{end}}
+}
+{{end}}

@@ -1,0 +1,10 @@
+{{ range .Fields -}}
+{{ .Name }}:
+    {{ range  .Children -}}
+    {{ .Name }}:
+        code: {{ .Code }}
+        message: {{ .Message }}
+        statusCode: {{ .StatusCode }}
+        grpcCode: {{ .GrpcCode}}
+    {{ end }}
+{{ end }}
