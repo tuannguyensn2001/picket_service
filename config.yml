@@ -2,3 +2,11 @@ app:
   grpcAddress: 0.0.0.0:20000
   env: development
   httpAddress: 0.0.0.0:21000
+
+oauth2:
+  google:
+    client_id: 406915386923-nohqgg2rjqh348qomg6c1964luit4u38.apps.googleusercontent.com
+    client_secret: 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
+
+client:
+  url: http://localhost:3000

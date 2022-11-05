@@ -6,6 +6,7 @@ import (
 	"os"
 )
 
+var Auth *auth
 var General *general
 
 func LoadError() {
@@ -25,5 +26,6 @@ func LoadError() {
 
 	//General = root.General
 
+	Auth = root.Auth
 	General = root.General
 }

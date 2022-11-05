@@ -20,3 +20,10 @@ general:
         statusCode: 3
         grpcCode: 13
     
+auth:
+    codeNotValid:
+        code: 6
+        message: code not valid
+        statusCode: 400
+        grpcCode: 400
+    

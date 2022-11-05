@@ -5,18 +5,24 @@ import (
 	"github.com/grpc-ecosystem/grpc-gateway/v2/runtime"
 	"go.uber.org/zap"
 	"google.golang.org/grpc"
+	"myclass_service/src/config"
 	auth_transport "myclass_service/src/features/auth/transport"
+	auth_usecase "myclass_service/src/features/auth/usecase"
 	media_transport "myclass_service/src/features/media/transport"
 	media_usecase "myclass_service/src/features/media/usecase"
 	authpb "myclass_service/src/pb/auth"
+	oauth_service "myclass_service/src/services/oauth"
 	storage_service "myclass_service/src/services/storage"
 	"net/http"
 )
 
 type handler = func(ctx context.Context, mux *runtime.ServeMux, conn *grpc.ClientConn) error
 
-func RouteGrpc(ctx context.Context, s *grpc.Server) {
-	authTransport := auth_transport.New(ctx)
+func RouteGrpc(ctx context.Context, s *grpc.Server, config config.IConfig) {
+	oauthService := oauth_service.New(config)
+
+	authUsecase := auth_usecase.New(nil, oauthService)
+	authTransport := auth_transport.New(ctx, authUsecase)
 
 	authpb.RegisterAuthServiceServer(s, authTransport)
 }

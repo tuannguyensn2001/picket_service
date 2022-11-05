@@ -15,10 +15,24 @@ message RegisterResponse {
   string message = 1;
 }
 
+message LoginGoogleRequest {
+  string code = 1;
+}
+
+message LoginGoogleResponse {
+  string message = 1;
+}
+
 service AuthService {
   rpc Register(RegisterRequest) returns(RegisterResponse){
     option(google.api.http) = {
       post: "/api/v1/auth/register",
+      body: "*"
+    };
+  }
+  rpc LoginGoogle(LoginGoogleRequest) returns(LoginGoogleResponse) {
+    option(google.api.http) = {
+      post: "/api/v1/auth/login/google",
       body: "*"
     };
   }

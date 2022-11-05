@@ -7,6 +7,7 @@ import (
 	grpc_zap "github.com/grpc-ecosystem/go-grpc-middleware/logging/zap"
 	grpc_recovery "github.com/grpc-ecosystem/go-grpc-middleware/recovery"
 	"github.com/grpc-ecosystem/grpc-gateway/v2/runtime"
+	"github.com/rs/cors"
 	"github.com/spf13/cobra"
 	"go.uber.org/zap"
 	"google.golang.org/grpc"
@@ -55,7 +56,7 @@ func runGrpc(ctx context.Context, config config.IConfig, wg *sync.WaitGroup) {
 		zap.S().Fatalln(err)
 	}
 
-	routes.RouteGrpc(ctx, server)
+	routes.RouteGrpc(ctx, server, config)
 
 	sigint := make(chan os.Signal, 1)
 	signal.Notify(sigint, os.Interrupt)
@@ -83,9 +84,11 @@ func runGateway(ctx context.Context, config config.IConfig, wg *sync.WaitGroup) 
 
 	routes.RouteGw(ctx, gw, conn)
 
+	handler := cors.Default().Handler(gw)
+
 	gwServer := &http.Server{
 		Addr:    config.GetHttpAddress(),
-		Handler: gw,
+		Handler: handler,
 	}
 
 	sigint := make(chan os.Signal, 1)

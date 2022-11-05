@@ -12,6 +12,15 @@ type structure struct {
 		GrpcAddress string `mapstructure:"grpcAddress"`
 		HttpAddress string `mapstructure:"httpAddress"`
 	} `mapstructure:"app"`
+	OAuth2 struct {
+		Google struct {
+			ClientId     string `mapstructure:"client_id"`
+			ClientSecret string `mapstructure:"client_secret"`
+		} `mapstructure:"google"`
+	} `mapstructure:"oauth2"`
+	Client struct {
+		Url string `mapstructure:"url"`
+	} `mapstructure:"client"`
 }
 
 func bootstrap() structure {
