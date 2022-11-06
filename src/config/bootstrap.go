@@ -21,6 +21,9 @@ type structure struct {
 	Client struct {
 		Url string `mapstructure:"url"`
 	} `mapstructure:"client"`
+	Database struct {
+		Mysql string `mapstructure:"mysql"`
+	} `mapstructure:"database"`
 }
 
 func bootstrap() structure {

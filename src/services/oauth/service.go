@@ -7,6 +7,7 @@ import (
 	"errors"
 	"github.com/go-resty/resty/v2"
 	"myclass_service/src/config"
+	"myclass_service/src/entities"
 	"strings"
 )
 
@@ -40,10 +41,12 @@ func (s *service) GetAccessTokenFromCode(ctx context.Context, code string) (stri
 	var respErr *ResponseError
 
 	resp, err := client.R().
+		SetContext(ctx).
 		SetFormData(body).
 		SetHeader("Content-Type", "application/x-www-form-urlencoded").
 		SetError(respErr).
 		Post("https://oauth2.googleapis.com/token")
+
 	if err != nil {
 		return "", err
 	}
@@ -60,4 +63,44 @@ func (s *service) GetAccessTokenFromCode(ctx context.Context, code string) (stri
 	}
 
 	return respSuccess.AccessToken, nil
+}
+
+func (s *service) GetUserProfileByAccessToken(ctx context.Context, accessToken string) (*entities.User, error) {
+	client := resty.New()
+
+	type ResponseError struct {
+		Error string `json:"error"`
+	}
+	var respErr *ResponseError
+
+	resp, err := client.R().SetQueryParam("access_token", accessToken).SetError(respErr).Get("https://www.googleapis.com/oauth2/v3/userinfo")
+	if err != nil {
+		return nil, err
+	}
+	if respErr != nil {
+		return nil, errors.New(respErr.Error)
+	}
+
+	type ResponseSuccess struct {
+		Name    string `json:"name"`
+		Picture string `json:"picture"`
+		Email   string `json:"email"`
+	}
+
+	var response ResponseSuccess
+	f := bufio.NewReader(strings.NewReader(string(resp.Body())))
+	err = json.NewDecoder(f).Decode(&response)
+	if err != nil {
+		return nil, err
+	}
+
+	result := entities.User{
+		Username: response.Name,
+		Email:    response.Email,
+		Profile: &entities.Profile{
+			Avatar: response.Picture,
+		},
+	}
+	return &result, nil
+
 }

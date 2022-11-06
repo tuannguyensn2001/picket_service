@@ -1,5 +1,7 @@
 package config
 
+import "gorm.io/gorm"
+
 type IConfig interface {
 	GetEnv() string
 	GetGrpcAddress() string
@@ -7,6 +9,7 @@ type IConfig interface {
 	GetGoogleClientId() string
 	GetGoogleClientSecret() string
 	GetClientUrl() string
+	GetDB() *gorm.DB
 }
 
 func (c config) GetGoogleClientId() string {

@@ -10,3 +10,6 @@ oauth2:
 
 client:
   url: http://localhost:3000
+
+database:
+  mysql: root:SZrh8JrYy7jOVKVcO9QB@tcp(containers-us-west-102.railway.app:6937)/railway?charset=utf8mb4&parseTime=True&loc=Local

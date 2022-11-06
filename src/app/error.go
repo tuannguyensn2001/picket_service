@@ -4,7 +4,7 @@ import (
 	"bytes"
 	"encoding/json"
 	"gopkg.in/yaml.v3"
-	"io/ioutil"
+	"os"
 )
 
 type Error struct {
@@ -30,7 +30,7 @@ func (e Error) ToJSON() (string, error) {
 }
 
 func LoadErr(url string) (map[string]map[string]Error, error) {
-	yamlFile, err := ioutil.ReadFile(url)
+	yamlFile, err := os.ReadFile(url)
 	if err != nil {
 		return nil, err
 	}

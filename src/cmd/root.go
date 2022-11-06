@@ -8,7 +8,7 @@ import (
 type command = func(config config.IConfig) *cobra.Command
 
 func GetRoot(config config.IConfig) *cobra.Command {
-	cmds := []command{server, buildErr, genError}
+	cmds := []command{server, buildErr, genError, migrateUp, migrateDown}
 
 	root := &cobra.Command{}
 
