@@ -6,6 +6,7 @@ import (
 	"encoding/json"
 	"errors"
 	"github.com/go-resty/resty/v2"
+	"go.uber.org/zap"
 	"myclass_service/src/config"
 	"myclass_service/src/entities"
 	"strings"
@@ -38,21 +39,21 @@ func (s *service) GetAccessTokenFromCode(ctx context.Context, code string) (stri
 		AccessToken string `json:"access_token"`
 	}
 
-	var respErr *ResponseError
-
 	resp, err := client.R().
 		SetContext(ctx).
 		SetFormData(body).
 		SetHeader("Content-Type", "application/x-www-form-urlencoded").
-		SetError(respErr).
+		SetError(&ResponseError{}).
 		Post("https://oauth2.googleapis.com/token")
 
 	if err != nil {
+		zap.S().Error(err)
 		return "", err
 	}
 
-	if respErr != nil {
-		return "", errors.New(respErr.Error)
+	if val, ok := resp.Error().(*ResponseError); ok {
+		zap.S().Error(val)
+		return "", errors.New(val.Error)
 	}
 
 	var respSuccess ResponseSuccess

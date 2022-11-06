@@ -3,6 +3,7 @@ package auth_usecase
 import (
 	"context"
 	"errors"
+	"go.opentelemetry.io/otel"
 	"go.uber.org/zap"
 	"gorm.io/gorm"
 	"myclass_service/src/entities"
@@ -12,6 +13,8 @@ import (
 
 type IRepository interface {
 }
+
+var tracer = otel.Tracer("auth_usecase")
 
 type IOauthService interface {
 	GetAccessTokenFromCode(ctx context.Context, code string) (string, error)
@@ -34,11 +37,18 @@ func New(repository IRepository, oauthService IOauthService, userUsecase IUserUs
 }
 
 func (u *usecase) LoginGoogle(ctx context.Context, code string) (*auth_struct.LoginGoogleOutput, error) {
+	ctx, span := tracer.Start(ctx, "login google")
+	defer span.End()
+
+	ctx, span = tracer.Start(ctx, "validate code")
 	if len(code) == 0 {
 		return nil, errpkg.Auth.CodeNotValid
 	}
+	span.End()
 
+	ctx, span = tracer.Start(ctx, "get access token from code")
 	result, err := u.oauthService.GetAccessTokenFromCode(ctx, code)
+	span.End()
 	if err != nil {
 		return nil, err
 	}

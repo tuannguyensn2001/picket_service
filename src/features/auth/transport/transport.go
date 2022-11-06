@@ -2,6 +2,8 @@ package auth_transport
 
 import (
 	"context"
+	"go.uber.org/zap"
+	"google.golang.org/grpc/metadata"
 	auth_struct "myclass_service/src/features/auth/struct"
 	"myclass_service/src/packages/err"
 	authpb "myclass_service/src/pb/auth"
@@ -21,6 +23,8 @@ func New(ctx context.Context, usecase IUsecase) *transport {
 }
 
 func (t *transport) Register(ctx context.Context, request *authpb.RegisterRequest) (*authpb.RegisterResponse, error) {
+	md, ok := metadata.FromIncomingContext(ctx)
+	zap.S().Info(md, ok)
 	panic(errpkg.General.BadRequest)
 	return nil, errpkg.General.BadRequest
 }
