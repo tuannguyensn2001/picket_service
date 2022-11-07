@@ -10,4 +10,5 @@ type User struct {
 	Profile  *Profile `json:"profile"`
 	Type     int      `json:"type"`
 	Status   int      `json:"status"`
+	Id       int      `json:"id"`
 }

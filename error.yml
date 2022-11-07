@@ -1,4 +1,9 @@
 general:
+    unauthorized:
+        code: 3
+        message: unauthorized
+        statusCode: 3
+        grpcCode: 13
     internal:
         code: 5
         message: internal server error
@@ -14,11 +19,6 @@ general:
         message: Data not valid
         statusCode: 400
         grpcCode: 13
-    unauthorized:
-        code: 3
-        message: unauthorized
-        statusCode: 3
-        grpcCode: 13
     
 auth:
     codeNotValid:
@@ -26,4 +26,9 @@ auth:
         message: code not valid
         statusCode: 400
         grpcCode: 400
+    unauthorized:
+        code: 7
+        message: unauthorized
+        statusCode: 401
+        grpcCode: 401
     

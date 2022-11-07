@@ -6,6 +6,7 @@ import (
 	"go.opentelemetry.io/otel"
 	"go.uber.org/zap"
 	"gorm.io/gorm"
+	"myclass_service/src/config"
 	"myclass_service/src/entities"
 	auth_struct "myclass_service/src/features/auth/struct"
 	errpkg "myclass_service/src/packages/err"
@@ -30,13 +31,15 @@ type usecase struct {
 	repository   IRepository
 	oauthService IOauthService
 	userUsecase  IUserUsecase
+	config       config.IConfig
 }
 
-func New(repository IRepository, oauthService IOauthService, userUsecase IUserUsecase) *usecase {
-	return &usecase{repository: repository, oauthService: oauthService, userUsecase: userUsecase}
+func New(repository IRepository, oauthService IOauthService, userUsecase IUserUsecase, config config.IConfig) *usecase {
+	return &usecase{repository: repository, oauthService: oauthService, userUsecase: userUsecase, config: config}
 }
 
 func (u *usecase) LoginGoogle(ctx context.Context, code string) (*auth_struct.LoginGoogleOutput, error) {
+
 	ctx, span := tracer.Start(ctx, "login google")
 	defer span.End()
 
@@ -77,7 +80,13 @@ func (u *usecase) LoginGoogle(ctx context.Context, code string) (*auth_struct.Lo
 		}
 	}
 
-	zap.S().Info(user)
+	token, err := u.GenerateToken(ctx, *user)
+	if err != nil {
+		zap.S().Error(err)
+		return nil, err
+	}
 
-	return nil, nil
+	res := auth_struct.LoginGoogleOutput{AccessToken: token}
+
+	return &res, nil
 }

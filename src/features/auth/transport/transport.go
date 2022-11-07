@@ -30,9 +30,9 @@ func (t *transport) Register(ctx context.Context, request *authpb.RegisterReques
 }
 
 func (t *transport) LoginGoogle(ctx context.Context, request *authpb.LoginGoogleRequest) (*authpb.LoginGoogleResponse, error) {
-	_, err := t.usecase.LoginGoogle(ctx, request.GetCode())
+	result, err := t.usecase.LoginGoogle(ctx, request.GetCode())
 	if err != nil {
 		panic(err)
 	}
-	return &authpb.LoginGoogleResponse{Message: "success"}, nil
+	return &authpb.LoginGoogleResponse{Message: "success", Data: &authpb.LoginGoogleOutput{AccessToken: result.AccessToken}}, nil
 }

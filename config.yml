@@ -2,6 +2,7 @@ app:
   grpcAddress: 0.0.0.0:20000
   env: development
   httpAddress: 0.0.0.0:21000
+  secretKey: tuannguyensn2001
 
 oauth2:
   google:

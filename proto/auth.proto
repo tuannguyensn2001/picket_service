@@ -19,8 +19,13 @@ message LoginGoogleRequest {
   string code = 1;
 }
 
+message LoginGoogleOutput  {
+  string access_token = 1;
+}
+
 message LoginGoogleResponse {
   string message = 1;
+  LoginGoogleOutput data = 2;
 }
 
 service AuthService {

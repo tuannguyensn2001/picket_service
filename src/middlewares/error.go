@@ -5,7 +5,6 @@ import (
 	"context"
 	"encoding/json"
 	"github.com/grpc-ecosystem/grpc-gateway/v2/runtime"
-	"go.uber.org/zap"
 	"google.golang.org/genproto/googleapis/rpc/errdetails"
 	"google.golang.org/grpc/status"
 	"myclass_service/src/app"
@@ -17,7 +16,6 @@ import (
 func HandleError(ctx context.Context, mux *runtime.ServeMux, marshaler runtime.Marshaler, writer http.ResponseWriter, request *http.Request, err error) {
 
 	s := status.Convert(err)
-	zap.S().Error(err)
 	writer.Header().Set("Content-Type", "application/json")
 
 	httpErr := errpkg.General.Internal

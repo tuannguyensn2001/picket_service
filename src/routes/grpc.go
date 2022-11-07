@@ -11,8 +11,10 @@ import (
 	media_transport "myclass_service/src/features/media/transport"
 	media_usecase "myclass_service/src/features/media/usecase"
 	user_repository "myclass_service/src/features/user/repository"
+	user_transport "myclass_service/src/features/user/transport"
 	user_usecase "myclass_service/src/features/user/usecase"
 	authpb "myclass_service/src/pb/auth"
+	userpb "myclass_service/src/pb/user"
 	oauth_service "myclass_service/src/services/oauth"
 	storage_service "myclass_service/src/services/storage"
 	"net/http"
@@ -25,15 +27,17 @@ func RouteGrpc(ctx context.Context, s *grpc.Server, config config.IConfig) {
 
 	userRepository := user_repository.New(config.GetDB())
 	userUsecase := user_usecase.New(userRepository)
+	userTransport := user_transport.New(ctx)
 
-	authUsecase := auth_usecase.New(nil, oauthService, userUsecase)
+	authUsecase := auth_usecase.New(nil, oauthService, userUsecase, config)
 	authTransport := auth_transport.New(ctx, authUsecase)
 
 	authpb.RegisterAuthServiceServer(s, authTransport)
+	userpb.RegisterUserServiceServer(s, userTransport)
 }
 
 func RouteGw(ctx context.Context, gw *runtime.ServeMux, conn *grpc.ClientConn) {
-	lists := []handler{authpb.RegisterAuthServiceHandler}
+	lists := []handler{authpb.RegisterAuthServiceHandler, userpb.RegisterUserServiceHandler}
 
 	for _, item := range lists {
 		err := item(ctx, gw, conn)

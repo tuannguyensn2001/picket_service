@@ -11,6 +11,7 @@ type structure struct {
 		Env         string `mapstructure:"env"`
 		GrpcAddress string `mapstructure:"grpcAddress"`
 		HttpAddress string `mapstructure:"httpAddress"`
+		SecretKey   string `mapstructure:"secretKey"`
 	} `mapstructure:"app"`
 	OAuth2 struct {
 		Google struct {

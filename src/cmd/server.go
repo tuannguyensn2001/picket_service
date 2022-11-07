@@ -19,6 +19,7 @@ import (
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials/insecure"
 	"google.golang.org/grpc/reflection"
+	"google.golang.org/protobuf/encoding/protojson"
 	"myclass_service/src/config"
 	"myclass_service/src/middlewares"
 	"myclass_service/src/packages/err"
@@ -56,7 +57,7 @@ func runGrpc(ctx context.Context, config config.IConfig, wg *sync.WaitGroup) {
 	server := grpc.NewServer(grpc.UnaryInterceptor(grpc_middleware.ChainUnaryServer(
 		grpc_zap.UnaryServerInterceptor(zap.L()),
 		grpc_recovery.UnaryServerInterceptor([]grpc_recovery.Option{grpc_recovery.WithRecoveryHandlerContext(middlewares.HandleGrpcError)}...),
-		grpc_auth.UnaryServerInterceptor(middlewares.Auth),
+		grpc_auth.UnaryServerInterceptor(middlewares.Auth(config)),
 	)))
 	reflection.Register(server)
 
@@ -89,7 +90,14 @@ func runGateway(ctx context.Context, config config.IConfig, wg *sync.WaitGroup) 
 	if err != nil {
 		zap.S().Fatalln(err)
 	}
-	gw := runtime.NewServeMux(runtime.WithErrorHandler(middlewares.HandleError), runtime.WithMetadata(middlewares.HttpPath))
+	gw := runtime.NewServeMux(runtime.WithErrorHandler(middlewares.HandleError), runtime.WithMetadata(middlewares.HttpPath), runtime.WithMarshalerOption(runtime.MIMEWildcard, &runtime.JSONPb{
+		MarshalOptions: protojson.MarshalOptions{
+			UseProtoNames: true,
+		},
+		UnmarshalOptions: protojson.UnmarshalOptions{
+			DiscardUnknown: true,
+		},
+	}))
 
 	routes.RouteGw(ctx, gw, conn)
 

@@ -10,6 +10,7 @@ type IConfig interface {
 	GetGoogleClientSecret() string
 	GetClientUrl() string
 	GetDB() *gorm.DB
+	GetSecretKey() string
 }
 
 func (c config) GetGoogleClientId() string {
@@ -22,4 +23,8 @@ func (c config) GetGoogleClientSecret() string {
 
 func (c config) GetClientUrl() string {
 	return c.ClientUrl
+}
+
+func (c config) GetSecretKey() string {
+	return c.secretKey
 }

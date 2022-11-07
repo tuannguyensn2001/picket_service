@@ -29,6 +29,9 @@ func (r *repo) FindByEmail(ctx context.Context, email string) (*entities.User, e
 	result := entities.User{
 		Email:    model.Email,
 		Username: model.Username,
+		Id:       model.Id,
+		Status:   model.Status,
+		Type:     model.Type,
 	}
 	return &result, nil
 }

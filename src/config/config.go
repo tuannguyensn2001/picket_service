@@ -15,6 +15,7 @@ type config struct {
 	GoogleClientSecret string
 	ClientUrl          string
 	db                 *gorm.DB
+	secretKey          string
 }
 
 func GetConfig() config {
@@ -26,6 +27,7 @@ func GetConfig() config {
 		GoogleClientId:     structure.OAuth2.Google.ClientId,
 		GoogleClientSecret: structure.OAuth2.Google.ClientSecret,
 		ClientUrl:          structure.Client.Url,
+		secretKey:          structure.App.SecretKey,
 	}
 
 	db, err := gorm.Open(mysql.Open(structure.Database.Mysql), &gorm.Config{
