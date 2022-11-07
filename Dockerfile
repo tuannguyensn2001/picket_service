@@ -9,5 +9,7 @@ FROM alpine:3.16
 WORKDIR /app
 COPY --from=builder /app/main .
 COPY --from=builder /app/config.yml .
+COPY --from=builder /app/error.yml .
+
 
 CMD ["/app/main","server"]

@@ -1,6 +1,6 @@
 app:
   grpcAddress: 0.0.0.0:20000
-  env: development
+  env: production
   httpAddress: 0.0.0.0:21000
   secretKey: tuannguyensn2001
 
