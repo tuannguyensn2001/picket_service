@@ -27,7 +27,7 @@ func RouteGrpc(ctx context.Context, s *grpc.Server, config config.IConfig) {
 
 	userRepository := user_repository.New(config.GetDB())
 	userUsecase := user_usecase.New(userRepository)
-	userTransport := user_transport.New(ctx)
+	userTransport := user_transport.New(ctx, userUsecase)
 
 	authUsecase := auth_usecase.New(nil, oauthService, userUsecase, config)
 	authTransport := auth_transport.New(ctx, authUsecase)

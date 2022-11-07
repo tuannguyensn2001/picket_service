@@ -32,8 +32,64 @@ func (r *repo) FindByEmail(ctx context.Context, email string) (*entities.User, e
 		Id:       model.Id,
 		Status:   model.Status,
 		Type:     model.Type,
+		Password: model.Password,
 	}
 	return &result, nil
+}
+
+func (r *repo) FindById(ctx context.Context, id int) (*entities.User, error) {
+	db := r.GetDB(ctx)
+
+	type queryResult struct {
+		Id       int    `gorm:"column:id"`
+		Username string `gorm:"column:username"`
+		Email    string `gorm:"column:email"`
+		Avatar   string `gorm:"column:avatar"`
+	}
+
+	var result queryResult
+	query := "SELECT users.id,users.username,users.email,profiles.avatar FROM users LEFT JOIN profiles ON  users.id = profiles.user_id WHERE users.id = ?"
+	if err := db.WithContext(ctx).Raw(query, id).Scan(&result).Error; err != nil {
+		return nil, err
+	}
+
+	user := entities.User{
+		Email:    result.Email,
+		Username: result.Username,
+		Profile: &entities.Profile{
+			Avatar: result.Avatar,
+		},
+	}
+
+	return &user, nil
+}
+
+func (r *repo) CreateAccount(ctx context.Context, entity *entities.User) error {
+	db := r.GetDB(ctx)
+	return db.Transaction(func(tx *gorm.DB) error {
+		model := user{
+			Username: entity.Username,
+			Password: entity.Password,
+			Email:    entity.Email,
+			Status:   active,
+			Type:     type_account_normal,
+		}
+		if err := tx.WithContext(ctx).Create(&model).Error; err != nil {
+			return err
+		}
+
+		profile := profile{
+			UserId: model.Id,
+			Avatar: default_avatar,
+		}
+		if err := tx.WithContext(ctx).Create(&profile).Error; err != nil {
+			return err
+		}
+		entity.Status = model.Status
+		entity.Type = model.Type
+		return nil
+	})
+
 }
 
 func (r *repo) InsertByGoogleAccount(ctx context.Context, entity *entities.User) error {

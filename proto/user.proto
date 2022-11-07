@@ -5,9 +5,14 @@ package user;
 option go_package = "./userpb";
 import "google/api/annotations.proto";
 
+message Profile {
+  string avatar = 1;
+}
+
 message User {
   string username = 1;
   string email = 2;
+  Profile profile = 3;
 }
 
 message GetProfileRequest {

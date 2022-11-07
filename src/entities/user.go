@@ -5,10 +5,11 @@ type Profile struct {
 }
 
 type User struct {
-	Email    string   `json:"email"`
-	Username string   `json:"username"`
-	Profile  *Profile `json:"profile"`
-	Type     int      `json:"type"`
-	Status   int      `json:"status"`
-	Id       int      `json:"id"`
+	Email    string   `json:"email,omitempty"`
+	Username string   `json:"username,omitempty"`
+	Profile  *Profile `json:"profile,omitempty"`
+	Type     int      `json:"type,omitempty"`
+	Status   int      `json:"status,omitempty"`
+	Id       int      `json:"id,omitempty"`
+	Password string   `json:"-"`
 }

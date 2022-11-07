@@ -2,24 +2,44 @@ package user_transport
 
 import (
 	"context"
-	"go.uber.org/zap"
+	"myclass_service/src/entities"
 	userpb "myclass_service/src/pb/user"
 	"myclass_service/src/utils"
 )
 
-type transport struct {
-	userpb.UnimplementedUserServiceServer
+type IUsecase interface {
+	GetById(ctx context.Context, id int) (*entities.User, error)
 }
 
-func New(ctx context.Context) *transport {
-	return &transport{}
+type transport struct {
+	userpb.UnimplementedUserServiceServer
+	usecase IUsecase
+}
+
+func New(ctx context.Context, usecase IUsecase) *transport {
+	return &transport{usecase: usecase}
 }
 
 func (t *transport) GetProfile(ctx context.Context, request *userpb.GetProfileRequest) (*userpb.GetProfileResponse, error) {
 	userId, err := utils.GetAuth(ctx)
-	zap.S().Info(userId, err)
+	if err != nil {
+		panic(err)
+	}
+
+	user, err := t.usecase.GetById(ctx, userId)
+	if err != nil {
+		panic(err)
+	}
+
 	resp := &userpb.GetProfileResponse{
 		Message: "success",
+		Data: &userpb.User{
+			Email:    user.Email,
+			Username: user.Username,
+			Profile: &userpb.Profile{
+				Avatar: user.Profile.Avatar,
+			},
+		},
 	}
 	return resp, nil
 }

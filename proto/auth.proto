@@ -28,6 +28,20 @@ message LoginGoogleResponse {
   LoginGoogleOutput data = 2;
 }
 
+message LoginRequest {
+  string email = 1;
+  string password = 2;
+}
+
+message LoginOutput {
+  string access_token = 1;
+}
+
+message LoginResponse {
+  string message = 1;
+  LoginOutput data = 2;
+}
+
 service AuthService {
   rpc Register(RegisterRequest) returns(RegisterResponse){
     option(google.api.http) = {
@@ -38,6 +52,12 @@ service AuthService {
   rpc LoginGoogle(LoginGoogleRequest) returns(LoginGoogleResponse) {
     option(google.api.http) = {
       post: "/api/v1/auth/login/google",
+      body: "*"
+    };
+  }
+  rpc Login(LoginRequest) returns(LoginResponse){
+    option(google.api.http) = {
+      post: "/api/v1/auth/login",
       body: "*"
     };
   }

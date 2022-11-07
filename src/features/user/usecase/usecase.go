@@ -8,6 +8,8 @@ import (
 type IRepository interface {
 	FindByEmail(ctx context.Context, email string) (*entities.User, error)
 	InsertByGoogleAccount(ctx context.Context, entity *entities.User) error
+	CreateAccount(ctx context.Context, entity *entities.User) error
+	FindById(ctx context.Context, id int) (*entities.User, error)
 }
 
 type usecase struct {
@@ -24,4 +26,12 @@ func (u *usecase) GetByEmail(ctx context.Context, email string) (*entities.User,
 
 func (u *usecase) CreateByGoogleAccount(ctx context.Context, entity *entities.User) error {
 	return u.repository.InsertByGoogleAccount(ctx, entity)
+}
+
+func (u *usecase) CreateAccount(ctx context.Context, entity *entities.User) error {
+	return u.repository.CreateAccount(ctx, entity)
+}
+
+func (u *usecase) GetById(ctx context.Context, id int) (*entities.User, error) {
+	return u.repository.FindById(ctx, id)
 }

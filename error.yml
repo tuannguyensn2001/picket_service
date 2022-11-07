@@ -31,4 +31,14 @@ auth:
         message: unauthorized
         statusCode: 401
         grpcCode: 401
+    accountExisted:
+        code: 8
+        message: account existed
+        statusCode: 400
+        grpcCode: 400
+    loginFailed:
+        code: 9
+        message: email or password not valid
+        statusCode: 400
+        grpcCode: 400
     

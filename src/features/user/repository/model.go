@@ -38,4 +38,5 @@ const (
 	type_account_google = 2
 	type_account_normal = 1
 	active              = 1
+	default_avatar      = "https://www.pphfoundation.ca/wp-content/uploads/2018/05/default-avatar.png"
 )

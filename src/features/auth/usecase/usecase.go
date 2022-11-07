@@ -25,6 +25,7 @@ type IOauthService interface {
 type IUserUsecase interface {
 	GetByEmail(ctx context.Context, email string) (*entities.User, error)
 	CreateByGoogleAccount(ctx context.Context, entity *entities.User) error
+	CreateAccount(ctx context.Context, entity *entities.User) error
 }
 
 type usecase struct {
