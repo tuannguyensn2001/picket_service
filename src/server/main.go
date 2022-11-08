@@ -26,7 +26,7 @@ func getLogger(config config.IConfig) *zap.Logger {
 	if err != nil {
 		log.Fatalln(err)
 	}
-	if config.GetEnv() == "production" {
+	if config.GetEnv() == "PRODUCTION" {
 		result, err = zap.NewProduction()
 		if err != nil {
 			log.Fatalln(err)

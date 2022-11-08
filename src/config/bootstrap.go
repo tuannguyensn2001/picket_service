@@ -32,18 +32,24 @@ func bootstrap() structure {
 	if err != nil {
 		log.Fatalln(err)
 	}
-
 	viper.AddConfigPath(path)
-	viper.SetConfigName("config")
-	viper.SetConfigType("yml")
+	viper.SetConfigType("env")
 	viper.AutomaticEnv()
-
+	viper.SetConfigName(".env.production")
 	viper.ReadInConfig()
+
+	viper.SetConfigName(".env")
+	viper.MergeInConfig()
+
+	for k, v := range bind {
+		viper.Set(v, viper.GetString(k))
+	}
 
 	var structure structure
 	err = viper.Unmarshal(&structure)
 	if err != nil {
 		log.Fatalln(err)
 	}
+	log.Println(structure)
 	return structure
 }

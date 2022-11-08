@@ -1,1 +1,4 @@
 config.yml
+
+.env
+.env.production
