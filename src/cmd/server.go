@@ -73,6 +73,7 @@ func runGrpc(ctx context.Context, config config.IConfig, wg *sync.WaitGroup) {
 	signal.Notify(sigint, os.Kill)
 
 	go func() {
+		zap.S().Info("grpc is running at :" + config.GetGrpcAddress())
 		err = server.Serve(lis)
 		if err != nil {
 			zap.S().Fatalln(err)
