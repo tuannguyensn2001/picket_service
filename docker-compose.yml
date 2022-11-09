@@ -4,8 +4,6 @@ services:
     build:
       dockerfile: Dockerfile
       context: .
-    env_file:
-      - .env.production
     ports:
       - "${APP_HTTP_PORT}:${APP_HTTP_PORT}"
       - "${APP_GRPC_PORT}:${APP_GRPC_PORT}"
