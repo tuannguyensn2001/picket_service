@@ -1,0 +1,33 @@
+syntax = "proto3";
+
+package class;
+option go_package = "./classpb";
+import "google/api/annotations.proto";
+import "google/protobuf/timestamp.proto";
+//import "google/protobuf/wrappers.proto";
+
+message Class {
+  int32 id = 1;
+  string name = 2;
+  string description = 3;
+  google.protobuf.Timestamp created_at = 4;
+  google.protobuf.Timestamp updated_at = 5;
+}
+
+message CreateClassRequest {
+  string name = 1;
+  string description = 2;
+}
+
+message CreateClassResponse {
+  string message = 1;
+}
+
+service ClassService{
+  rpc Create(CreateClassRequest) returns(CreateClassResponse){
+    option(google.api.http) = {
+      post: "/api/v1/classes",
+      body: "*"
+    };
+  }
+}

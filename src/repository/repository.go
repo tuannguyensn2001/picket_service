@@ -12,6 +12,12 @@ type Repository struct {
 	Db *gorm.DB
 }
 
+type IBaseRepository interface {
+	BeginTransaction(ctx context.Context, opts ...*sql.TxOptions) context.Context
+	Commit(ctx context.Context) *gorm.DB
+	Rollback(ctx context.Context) *gorm.DB
+}
+
 func (r *Repository) GetDB(ctx context.Context) *gorm.DB {
 	val, ok := ctx.Value(keyDB).(*gorm.DB)
 	if !ok {

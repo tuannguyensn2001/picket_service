@@ -27,10 +27,8 @@ func Auth(config config.IConfig) func(ctx context.Context) (context.Context, err
 			return ctx, ErrCannotGetMetadata
 		}
 		pattern := md.Get("pattern")
-		if len(pattern) == 0 {
-			return ctx, ErrCannotGetPattern
-		}
-		if !checkIsPrivateRoute(pattern[0]) {
+
+		if len(pattern) != 0 && !checkIsPrivateRoute(pattern[0]) {
 			return ctx, nil
 		}
 
