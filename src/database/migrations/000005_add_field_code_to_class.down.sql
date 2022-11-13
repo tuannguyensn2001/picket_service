@@ -1,0 +1,1 @@
+alter table classes drop column code;

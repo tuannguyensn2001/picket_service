@@ -8,4 +8,5 @@ type Class struct {
 	Description string
 	CreatedAt   *time.Time
 	UpdatedAt   *time.Time
+	Code        string
 }

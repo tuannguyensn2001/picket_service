@@ -7,12 +7,22 @@ import (
 	"myclass_service/src/entities"
 	class_struct "myclass_service/src/features/class/struct"
 	errpkg "myclass_service/src/packages/err"
+	"myclass_service/src/packages/slices"
 	"myclass_service/src/repository"
+	"myclass_service/src/utils"
+	"strings"
+)
+
+const (
+	randomLength = 5
 )
 
 type IRepository interface {
 	Create(ctx context.Context, class *entities.Class) error
 	repository.IBaseRepository
+	AddTeacherToClass(ctx context.Context, userId int, classId int) error
+	GetAllCodes(ctx context.Context) ([]string, error)
+	FindByQuery(ctx context.Context, params class_struct.QueryClass) ([]entities.Class, error)
 }
 
 type usecase struct {
@@ -30,20 +40,41 @@ func (u *usecase) Create(ctx context.Context, input class_struct.CreateClassInpu
 		return errpkg.General.BadRequest
 	}
 
-	ctx = u.repository.BeginTransaction(ctx)
+	codes, err := u.repository.GetAllCodes(ctx)
+	if err != nil {
+		zap.S().Error(err)
+		return err
+	}
+
+	code := utils.RandomWithLength(randomLength)
+	for {
+		if !slices.Includes(codes, code) {
+			break
+		}
+		code = utils.RandomWithLength(5)
+	}
 
 	class := entities.Class{
 		Name:        input.Name,
 		Description: input.Description,
+		Code:        strings.ToUpper(code),
 	}
+	ctx = u.repository.BeginTransaction(ctx)
+
 	err = u.repository.Create(ctx, &class)
 	if err != nil {
 		zap.S().Error(err)
 		u.repository.Rollback(ctx)
 		return err
 	}
+	err = u.repository.AddTeacherToClass(ctx, input.UserId, class.Id)
+	if err != nil {
+		zap.S().Error(err)
+		u.repository.Rollback(ctx)
+		return err
+	}
 
-	zap.S().Info(class)
+	u.repository.Commit(ctx)
 
 	return nil
 }

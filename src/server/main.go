@@ -3,9 +3,15 @@ package main
 import (
 	"go.uber.org/zap"
 	"log"
+	"math/rand"
 	"myclass_service/src/cmd"
 	"myclass_service/src/config"
+	"time"
 )
+
+func init() {
+	rand.Seed(time.Now().UnixNano())
+}
 
 func main() {
 	cfg := config.GetConfig()

@@ -5,3 +5,9 @@ type CreateClassInput struct {
 	Description string `validate:"required"`
 	UserId      int    `validate:"required"`
 }
+
+type QueryClass struct {
+	Name      string
+	OrderBy   string
+	Direction string
+}

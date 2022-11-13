@@ -74,7 +74,7 @@ func (s *service) GetUserProfileByAccessToken(ctx context.Context, accessToken s
 	}
 	var respErr *ResponseError
 
-	resp, err := client.R().SetQueryParam("access_token", accessToken).SetError(respErr).Get("https://www.googleapis.com/oauth2/v3/userinfo")
+	resp, err := client.R().SetContext(ctx).SetQueryParam("access_token", accessToken).SetError(respErr).Get("https://www.googleapis.com/oauth2/v3/userinfo")
 	if err != nil {
 		return nil, err
 	}
