@@ -33,6 +33,7 @@ jobs:
         run: echo ${{ steps.docker_build.outputs.digest }}
 
   push:
+    needs: docker
     name: push
     runs-on: ubuntu-latest
     steps:
