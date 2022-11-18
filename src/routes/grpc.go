@@ -2,6 +2,7 @@ package routes
 
 import (
 	"context"
+	"encoding/json"
 	"github.com/grpc-ecosystem/grpc-gateway/v2/runtime"
 	"go.uber.org/zap"
 	"google.golang.org/grpc"
@@ -60,4 +61,10 @@ func RouteGw(ctx context.Context, gw *runtime.ServeMux, conn *grpc.ClientConn) {
 	mediaTransport := media_transport.New(ctx, mediaUsecase)
 
 	gw.HandlePath(http.MethodPost, "/api/v1/media/upload", mediaTransport.Upload)
+	gw.HandlePath(http.MethodGet, "/health", func(w http.ResponseWriter, r *http.Request, pathParams map[string]string) {
+		res := map[string]string{
+			"message": "server is running",
+		}
+		json.NewEncoder(w).Encode(res)
+	})
 }
