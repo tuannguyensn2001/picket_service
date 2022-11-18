@@ -14,6 +14,5 @@ FROM alpine:3.16
 WORKDIR /app
 COPY --from=builder /app/main .
 COPY --from=builder /app/error.yml .
-COPY --from=builder /app/.env .
 
 CMD ["/app/main","server"]
