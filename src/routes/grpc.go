@@ -63,7 +63,7 @@ func RouteGw(ctx context.Context, gw *runtime.ServeMux, conn *grpc.ClientConn) {
 	gw.HandlePath(http.MethodPost, "/api/v1/media/upload", mediaTransport.Upload)
 	gw.HandlePath(http.MethodGet, "/health", func(w http.ResponseWriter, r *http.Request, pathParams map[string]string) {
 		res := map[string]string{
-			"message": "server is running",
+			"message": "server is running 123",
 		}
 		json.NewEncoder(w).Encode(res)
 	})

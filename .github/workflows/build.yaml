@@ -45,6 +45,7 @@ jobs:
           password: ${{ secrets.PASSWORD }}
           port: ${{ secrets.PORT }}
           script: |
+            docker image rm tuannguyensn2001/picket
             cd /home/ubuntu/workspace/myclass_service
             docker-compose down
             docker-compose up -d --build --no-deps
