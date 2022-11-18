@@ -23,7 +23,8 @@ type structure struct {
 		Url string `mapstructure:"url"`
 	} `mapstructure:"client"`
 	Database struct {
-		Mysql string `mapstructure:"mysql"`
+		Mysql    string `mapstructure:"mysql"`
+		Postgres string `mapstructure:"postgres"`
 	} `mapstructure:"database"`
 }
 

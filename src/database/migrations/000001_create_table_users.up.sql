@@ -1,6 +1,6 @@
-create table users
+create table if not exists users
 (
-    id         int     not null auto_increment,
+    id         serial primary key,
     username   varchar(255),
     email      varchar(255) not null,
     password   varchar(255),
@@ -8,6 +8,5 @@ create table users
     status     int default 1,
     created_at timestamp,
     updated_at timestamp,
-    deleted_at timestamp,
-    primary key (id)
+    deleted_at timestamp
 )

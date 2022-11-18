@@ -1,7 +1,7 @@
 package config
 
 import (
-	"gorm.io/driver/mysql"
+	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 	"gorm.io/gorm/logger"
 	"log"
@@ -30,7 +30,7 @@ func GetConfig() config {
 		secretKey:          structure.App.SecretKey,
 	}
 
-	db, err := gorm.Open(mysql.Open(structure.Database.Mysql), &gorm.Config{
+	db, err := gorm.Open(postgres.Open(structure.Database.Postgres), &gorm.Config{
 		Logger: logger.Default.LogMode(logger.Info),
 	})
 	if err != nil {

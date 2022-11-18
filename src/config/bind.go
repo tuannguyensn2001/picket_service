@@ -21,4 +21,5 @@ var bind map[string]string = map[string]string{
 	"OAUTH2_GOOGLE_CLIENT_SECRET": "oauth2.google.client_secret",
 	"CLIENT_URL":                  "client.url",
 	"DATABASE_MYSQL":              "database.mysql",
+	"DATABASE_POSTGRES":           "database.postgres",
 }

@@ -3,7 +3,7 @@ package cmd
 import (
 	"fmt"
 	"github.com/golang-migrate/migrate/v4"
-	"github.com/golang-migrate/migrate/v4/database/mysql"
+	"github.com/golang-migrate/migrate/v4/database/postgres"
 	_ "github.com/golang-migrate/migrate/v4/source/file"
 	"github.com/spf13/cobra"
 	"log"
@@ -17,11 +17,11 @@ func setupM(config config.IConfig) *migrate.Migrate {
 		log.Fatalln("err connect to db")
 	}
 
-	driver, err := mysql.WithInstance(db, &mysql.Config{})
+	driver, err := postgres.WithInstance(db, &postgres.Config{})
 	dir, _ := os.Getwd()
 	path := "file://" + dir + "/src/database/migrations"
 
-	m, err := migrate.NewWithDatabaseInstance(path, "mysql", driver)
+	m, err := migrate.NewWithDatabaseInstance(path, "pgsql", driver)
 
 	if err != nil {
 		fmt.Println("err migrate up 1 ", err)

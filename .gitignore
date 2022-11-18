@@ -2,3 +2,4 @@ config.yml
 
 .env
 .env.production
+test
