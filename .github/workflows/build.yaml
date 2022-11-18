@@ -45,4 +45,6 @@ jobs:
           password: ${{ secrets.PASSWORD }}
           port: ${{ secrets.PORT }}
           script: |
-            ls /home/ubuntu/workspace/myclass_service
+            cd /home/ubuntu/workspace/myclass_service
+            docker-compose down
+            docker-compose up -d --build
