@@ -102,7 +102,11 @@ func runGateway(ctx context.Context, config config.IConfig, wg *sync.WaitGroup) 
 
 	routes.RouteGw(ctx, gw, conn)
 
-	handler := cors.Default().Handler(gw)
+	c := cors.New(cors.Options{
+		AllowedHeaders: []string{"*"},
+	})
+
+	handler := c.Handler(gw)
 
 	gwServer := &http.Server{
 		Addr:    config.GetHttpAddress(),
