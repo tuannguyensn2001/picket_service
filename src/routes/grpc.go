@@ -14,11 +14,15 @@ import (
 	class_usecase "myclass_service/src/features/class/usecase"
 	media_transport "myclass_service/src/features/media/transport"
 	media_usecase "myclass_service/src/features/media/usecase"
+	test_repository "myclass_service/src/features/test/repository"
+	test_transport "myclass_service/src/features/test/transport"
+	test_usecase "myclass_service/src/features/test/usecase"
 	user_repository "myclass_service/src/features/user/repository"
 	user_transport "myclass_service/src/features/user/transport"
 	user_usecase "myclass_service/src/features/user/usecase"
 	authpb "myclass_service/src/pb/auth"
 	classpb "myclass_service/src/pb/class"
+	testpb "myclass_service/src/pb/test"
 	userpb "myclass_service/src/pb/user"
 	oauth_service "myclass_service/src/services/oauth"
 	storage_service "myclass_service/src/services/storage"
@@ -41,13 +45,18 @@ func RouteGrpc(ctx context.Context, s *grpc.Server, config config.IConfig) {
 	classUsecase := class_usecase.New(classRepository)
 	classTransport := class_transport.New(ctx, classUsecase)
 
+	testRepository := test_repository.New(config.GetDB())
+	testUsecase := test_usecase.New(testRepository)
+	testTransport := test_transport.New(ctx, testUsecase)
+
 	authpb.RegisterAuthServiceServer(s, authTransport)
 	userpb.RegisterUserServiceServer(s, userTransport)
 	classpb.RegisterClassServiceServer(s, classTransport)
+	testpb.RegisterTestServiceServer(s, testTransport)
 }
 
 func RouteGw(ctx context.Context, gw *runtime.ServeMux, conn *grpc.ClientConn) {
-	lists := []handler{authpb.RegisterAuthServiceHandler, userpb.RegisterUserServiceHandler, classpb.RegisterClassServiceHandler}
+	lists := []handler{authpb.RegisterAuthServiceHandler, userpb.RegisterUserServiceHandler, classpb.RegisterClassServiceHandler, testpb.RegisterTestServiceHandler}
 
 	for _, item := range lists {
 		err := item(ctx, gw, conn)
