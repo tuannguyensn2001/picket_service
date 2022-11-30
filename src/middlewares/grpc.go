@@ -11,6 +11,7 @@ import (
 
 func HandleGrpcError(ctx context.Context, p interface{}) error {
 	zap.S().Error(p)
+
 	err, ok := p.(*app.Error)
 	if !ok {
 		return status.Error(codes.Internal, "internal server error")

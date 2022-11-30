@@ -9,6 +9,7 @@ import (
 
 type IUsecase interface {
 	Create(ctx context.Context, input test_struct.CreateTestInput, userId int) error
+	CreateContent(ctx context.Context, input test_struct.CreateTestContentInput) error
 }
 
 type transport struct {

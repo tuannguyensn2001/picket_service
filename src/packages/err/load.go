@@ -7,8 +7,9 @@ import (
 )
 
 
-var General *general
 var Auth *auth
+var Test *test
+var General *general
 
 func LoadError() {
 	root := rootErr{}
@@ -27,6 +28,7 @@ func LoadError() {
 
 	//General = root.General
 	
-    General = root.General 
     Auth = root.Auth 
+    Test = root.Test 
+    General = root.General 
 }

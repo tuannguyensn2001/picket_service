@@ -1,6 +1,6 @@
-syntax="proto3";
+syntax = "proto3";
 package test;
-option go_package="./testpb";
+option go_package = "./testpb";
 import "google/api/annotations.proto";
 
 message CreateTestRequest{
@@ -11,7 +11,7 @@ message CreateTestRequest{
   bool  do_once = 5;
   string password = 6;
   uint32 prevent_cheat = 7;
-  bool is_authenticate_user= 8;
+  bool is_authenticate_user = 8;
   uint32 show_mark = 9;
   uint32 show_answer = 10;
 }
@@ -20,10 +20,39 @@ message CreateTestResponse {
   string message = 1;
 }
 
+message MultipleChoiceAnswer {
+  int64 test_multiple_choice_id = 1;
+  string answer = 2;
+  float score = 3;
+  int32 type = 4;
+}
+
+message TestMultipleChoice {
+  string file_path = 1;
+  float score = 2;
+  repeated MultipleChoiceAnswer answers = 3;
+}
+
+message CreateTestContentRequest {
+  int64 test_id = 1;
+  int64 typeable = 2;
+  TestMultipleChoice multiple_choice = 3;
+}
+
+message CreateTestContentResponse {
+  string message = 1;
+}
+
 service TestService {
   rpc Create(CreateTestRequest) returns(CreateTestResponse){
     option(google.api.http) = {
       post: "/api/v1/tests",
+      body: "*"
+    };
+  }
+  rpc CreateContent(CreateTestContentRequest) returns(CreateTestContentResponse){
+    option(google.api.http) = {
+      post: "/api/v1/tests/content",
       body: "*"
     };
   }
