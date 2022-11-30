@@ -23,3 +23,30 @@ type Test struct {
 	DeletedAt          *time.Time `json:"deleted_at"`
 	Version            int        `json:"version"`
 }
+
+type TestContent struct {
+	Id         int        `json:"id"`
+	TestId     int        `json:"test_id"`
+	TypeableId int        `json:"typeable_id"`
+	Typeable   int        `json:"typeable"`
+	CreatedAt  *time.Time `json:"created_at"`
+	UpdatedAt  *time.Time `json:"updated_at"`
+}
+
+type TestMultipleChoiceAnswer struct {
+	Id                   int        `json:"id"`
+	TestMultipleChoiceId int        `json:"test_multiple_choice_id"`
+	Answer               string     `json:"answer"`
+	Score                float64    `json:"score"`
+	Type                 int        `json:"type"`
+	CreatedAt            *time.Time `json:"created_at"`
+	UpdatedAt            *time.Time `json:"updated_at"`
+}
+
+type TestMultipleChoice struct {
+	Id        int        `json:"id"`
+	FilePath  string     `json:"file_path"`
+	Score     float64    `json:"score"`
+	CreatedAt *time.Time `json:"created_at"`
+	UpdatedAt *time.Time `json:"updated_at"`
+}

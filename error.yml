@@ -19,6 +19,11 @@ general:
         message: Data not valid
         statusCode: 400
         grpcCode: 13
+    notFound:
+        code: 11
+        message: not found
+        statusCode: 404
+        grpcCode: 404
     
 auth:
     codeNotValid:
@@ -41,4 +46,11 @@ auth:
         message: email or password not valid
         statusCode: 400
         grpcCode: 400
+    
+test:
+    testHasContent:
+        code: 10
+        message: test has content
+        statusCode: 409
+        grpcCode: 409
     
