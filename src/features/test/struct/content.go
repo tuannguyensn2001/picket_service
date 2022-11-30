@@ -18,3 +18,9 @@ type CreateTestContentInput struct {
 	Typeable       int
 	MultipleChoice *TestMultipleChoice
 }
+
+type UpdateTestContentInput struct {
+	TestId         int
+	Typeable       int
+	MultipleChoice *TestMultipleChoice
+}
