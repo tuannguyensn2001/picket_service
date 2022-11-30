@@ -117,6 +117,7 @@ func (r *repo) InsertByGoogleAccount(ctx context.Context, entity *entities.User)
 
 		entity.Type = model.Type
 		entity.Status = model.Status
+		entity.Id = model.Id
 
 		return nil
 	})
