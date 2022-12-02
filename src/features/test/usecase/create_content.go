@@ -81,7 +81,7 @@ func (u *usecase) CreateMultipleChoiceContent(ctx context.Context, input test_st
 		return err
 	}
 
-	u.repository.Commit(ctx)
+	//u.repository.Commit(ctx)
 
 	return nil
 }
