@@ -5,7 +5,55 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="be89fe36-2ae4-4bd1-90c9-6d8a64260e82" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/go.mod" beforeDir="false" afterPath="$PROJECT_DIR$/go.mod" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/proto/test.proto" beforeDir="false" afterPath="$PROJECT_DIR$/proto/test.proto" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/cmd/build-err.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/cmd/build-err.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/cmd/gen-err.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/cmd/gen-err.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/cmd/migrate.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/cmd/migrate.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/cmd/root.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/cmd/root.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/cmd/server.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/cmd/server.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/entities/test.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/entities/test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/features/auth/transport/transport.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/features/auth/transport/transport.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/features/auth/usecase/jwt.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/features/auth/usecase/jwt.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/features/auth/usecase/login.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/features/auth/usecase/login.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/features/auth/usecase/register.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/features/auth/usecase/register.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/features/auth/usecase/usecase.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/features/auth/usecase/usecase.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/features/class/repository/repository.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/features/class/repository/repository.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/features/class/transport/transport.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/features/class/transport/transport.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/features/class/usecase/find.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/features/class/usecase/find.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/features/class/usecase/usecase.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/features/class/usecase/usecase.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/features/media/transport/transport.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/features/media/transport/transport.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/features/test/repository/create_list_test_multiple_choice_answer.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/features/test/repository/create_list_test_multiple_choice_answer.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/features/test/repository/create_test_content.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/features/test/repository/create_test_content.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/features/test/repository/create_test_multiple_choice.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/features/test/repository/create_test_multiple_choice.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/features/test/repository/find_content_by_test_id.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/features/test/repository/find_content_by_test_id.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/features/test/repository/find_test_by_id.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/features/test/repository/find_test_by_id.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/features/test/repository/get_test_multiple_choice_by_test_id.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/features/test/repository/find_test_multiple_choice_by_test_id.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/features/test/repository/repository.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/features/test/repository/repository.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/features/test/repository/save_test_multiple_choice.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/features/test/repository/save_test_multiple_choice.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/features/test/transport/create_test_content.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/features/test/transport/create_test_content.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/features/test/transport/transport.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/features/test/transport/transport.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/features/test/usecase/create_content.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/features/test/usecase/create_content.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/features/test/usecase/update_content.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/features/test/usecase/update_content.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/features/test/usecase/usecase.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/features/test/usecase/usecase.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/features/user/repository/repository.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/features/user/repository/repository.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/features/user/transport/transport.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/features/user/transport/transport.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/features/user/usecase/usecase.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/features/user/usecase/usecase.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/middlewares/auth.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/middlewares/auth.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/middlewares/error.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/middlewares/error.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/middlewares/grpc.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/middlewares/grpc.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/packages/err/struct.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/packages/err/struct.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pb/test/test.pb.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/pb/test/test.pb.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pb/test/test.pb.gw.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/pb/test/test.pb.gw.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pb/test/test_grpc.pb.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/pb/test/test_grpc.pb.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/routes/grpc.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes/grpc.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/routes/protected.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes/protected.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/server/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/server/main.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/services/oauth/service.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/services/oauth/service.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/services/storage/fs.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/services/storage/fs.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/utils/time.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/time.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -44,9 +92,62 @@
     "WebServerToolWindowFactoryState": "false",
     "go.import.settings.migrated": "true",
     "go.sdk.automatically.set": "true",
-    "last_opened_file_path": "/home/tuannguyensn2001"
+    "last_opened_file_path": "/home/tuannguyensn2001",
+    "node.js.detected.package.eslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)"
   }
 }]]></component>
+  <component name="RunManager" selected="Go Build.go build picket/src/server">
+    <configuration name="go build myclass_service/src/server" type="GoApplicationRunConfiguration" factoryName="Go Application" nameIsGenerated="true">
+      <module name="myclass_service" />
+      <working_directory value="$PROJECT_DIR$" />
+      <parameters value="server" />
+      <EXTENSION ID="net.ashald.envfile">
+        <option name="IS_ENABLED" value="false" />
+        <option name="IS_SUBST" value="false" />
+        <option name="IS_PATH_MACRO_SUPPORTED" value="false" />
+        <option name="IS_IGNORE_MISSING_FILES" value="false" />
+        <option name="IS_ENABLE_EXPERIMENTAL_INTEGRATIONS" value="false" />
+        <ENTRIES>
+          <ENTRY IS_ENABLED="true" PARSER="runconfig" IS_EXECUTABLE="false" />
+        </ENTRIES>
+      </EXTENSION>
+      <kind value="PACKAGE" />
+      <package value="myclass_service/src/server" />
+      <directory value="$PROJECT_DIR$" />
+      <filePath value="$PROJECT_DIR$/src/server/main.go" />
+      <method v="2" />
+    </configuration>
+    <configuration name="go build picket/src/server" type="GoApplicationRunConfiguration" factoryName="Go Application" temporary="true" nameIsGenerated="true">
+      <module name="myclass_service" />
+      <working_directory value="$PROJECT_DIR$" />
+      <parameters value="server" />
+      <EXTENSION ID="net.ashald.envfile">
+        <option name="IS_ENABLED" value="false" />
+        <option name="IS_SUBST" value="false" />
+        <option name="IS_PATH_MACRO_SUPPORTED" value="false" />
+        <option name="IS_IGNORE_MISSING_FILES" value="false" />
+        <option name="IS_ENABLE_EXPERIMENTAL_INTEGRATIONS" value="false" />
+        <ENTRIES>
+          <ENTRY IS_ENABLED="true" PARSER="runconfig" IS_EXECUTABLE="false" />
+        </ENTRIES>
+      </EXTENSION>
+      <kind value="PACKAGE" />
+      <package value="picket/src/server" />
+      <directory value="$PROJECT_DIR$" />
+      <filePath value="$PROJECT_DIR$/src/server/main.go" />
+      <method v="2" />
+    </configuration>
+    <list>
+      <item itemvalue="Go Build.go build myclass_service/src/server" />
+      <item itemvalue="Go Build.go build picket/src/server" />
+    </list>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Go Build.go build picket/src/server" />
+      </list>
+    </recent_temporary>
+  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
@@ -64,5 +165,16 @@
   </component>
   <component name="VgoProject">
     <settings-migrated>true</settings-migrated>
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
+          <url>file://$PROJECT_DIR$/src/features/test/transport/get.go</url>
+          <line>22</line>
+          <option name="timeStamp" value="5" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

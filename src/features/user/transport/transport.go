@@ -2,9 +2,9 @@ package user_transport
 
 import (
 	"context"
-	"myclass_service/src/entities"
-	userpb "myclass_service/src/pb/user"
-	"myclass_service/src/utils"
+	"picket/src/entities"
+	userpb "picket/src/pb/user"
+	"picket/src/utils"
 )
 
 type IUsecase interface {

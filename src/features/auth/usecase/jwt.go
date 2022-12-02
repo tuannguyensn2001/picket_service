@@ -3,7 +3,7 @@ package auth_usecase
 import (
 	"context"
 	"github.com/golang-jwt/jwt/v4"
-	"myclass_service/src/entities"
+	"picket/src/entities"
 	"strconv"
 	"time"
 )

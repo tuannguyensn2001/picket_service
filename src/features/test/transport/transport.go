@@ -2,14 +2,16 @@ package test_transport
 
 import (
 	"context"
-	test_struct "myclass_service/src/features/test/struct"
-	testpb "myclass_service/src/pb/test"
-	"myclass_service/src/utils"
+	"picket/src/entities"
+	test_struct "picket/src/features/test/struct"
+	testpb "picket/src/pb/test"
+	"picket/src/utils"
 )
 
 type IUsecase interface {
 	Create(ctx context.Context, input test_struct.CreateTestInput, userId int) error
 	CreateContent(ctx context.Context, input test_struct.CreateTestContentInput) error
+	GetTestsByUserId(ctx context.Context, userId int) ([]entities.Test, error)
 }
 
 type transport struct {

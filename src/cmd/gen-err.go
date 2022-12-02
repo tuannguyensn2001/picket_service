@@ -6,9 +6,9 @@ import (
 	"github.com/spf13/cobra"
 	"html/template"
 	"log"
-	"myclass_service/src/app"
-	"myclass_service/src/config"
 	"os"
+	"picket/src/app"
+	"picket/src/config"
 	"strconv"
 	"strings"
 )

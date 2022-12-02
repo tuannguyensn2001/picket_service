@@ -2,6 +2,8 @@ package utils
 
 import (
 	"errors"
+	"github.com/golang/protobuf/ptypes/timestamp"
+	"google.golang.org/protobuf/types/known/timestamppb"
 	"time"
 )
 
@@ -25,4 +27,11 @@ func ParseTime(layout string, val string) (*time.Time, error) {
 
 	return &result, nil
 
+}
+
+func ParseTimeToGrpc(t *time.Time) *timestamp.Timestamp {
+	if t == nil {
+		return nil
+	}
+	return timestamppb.New(*t)
 }

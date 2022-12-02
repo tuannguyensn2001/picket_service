@@ -2,7 +2,7 @@ package user_usecase
 
 import (
 	"context"
-	"myclass_service/src/entities"
+	"picket/src/entities"
 )
 
 type IRepository interface {

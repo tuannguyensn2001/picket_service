@@ -1,6 +1,6 @@
 package errpkg
 
-import "myclass_service/src/app"
+import "picket/src/app"
 
 type auth struct {
 	Unauthorized   *app.Error `yaml:"unauthorized"`

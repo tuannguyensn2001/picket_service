@@ -4,9 +4,9 @@ import (
 	"context"
 	"errors"
 	"gorm.io/gorm"
-	test_struct "myclass_service/src/features/test/struct"
-	errpkg "myclass_service/src/packages/err"
-	testpb "myclass_service/src/pb/test"
+	test_struct "picket/src/features/test/struct"
+	errpkg "picket/src/packages/err"
+	testpb "picket/src/pb/test"
 )
 
 func (t *transport) CreateContent(ctx context.Context, request *testpb.CreateTestContentRequest) (*testpb.CreateTestContentResponse, error) {

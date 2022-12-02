@@ -7,9 +7,9 @@ import (
 	"go.uber.org/zap"
 	"golang.org/x/crypto/bcrypt"
 	"gorm.io/gorm"
-	"myclass_service/src/entities"
-	auth_struct "myclass_service/src/features/auth/struct"
-	errpkg "myclass_service/src/packages/err"
+	"picket/src/entities"
+	auth_struct "picket/src/features/auth/struct"
+	errpkg "picket/src/packages/err"
 )
 
 func (u *usecase) Register(ctx context.Context, input auth_struct.RegisterInput) error {

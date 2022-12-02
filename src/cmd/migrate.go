@@ -7,8 +7,8 @@ import (
 	_ "github.com/golang-migrate/migrate/v4/source/file"
 	"github.com/spf13/cobra"
 	"log"
-	"myclass_service/src/config"
 	"os"
+	"picket/src/config"
 )
 
 func setupM(config config.IConfig) *migrate.Migrate {

@@ -7,9 +7,9 @@ import (
 	"html/template"
 	"io/ioutil"
 	"log"
-	"myclass_service/src/app"
-	"myclass_service/src/config"
 	"os"
+	"picket/src/app"
+	"picket/src/config"
 	"strings"
 )
 

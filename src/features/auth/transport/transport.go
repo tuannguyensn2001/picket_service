@@ -2,8 +2,8 @@ package auth_transport
 
 import (
 	"context"
-	auth_struct "myclass_service/src/features/auth/struct"
-	authpb "myclass_service/src/pb/auth"
+	auth_struct "picket/src/features/auth/struct"
+	authpb "picket/src/pb/auth"
 )
 
 type transport struct {

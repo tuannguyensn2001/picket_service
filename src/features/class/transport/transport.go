@@ -2,9 +2,9 @@ package class_transport
 
 import (
 	"context"
-	class_struct "myclass_service/src/features/class/struct"
-	classpb "myclass_service/src/pb/class"
-	"myclass_service/src/utils"
+	class_struct "picket/src/features/class/struct"
+	classpb "picket/src/pb/class"
+	"picket/src/utils"
 )
 
 type IUsecase interface {

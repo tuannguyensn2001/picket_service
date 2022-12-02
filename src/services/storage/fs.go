@@ -4,8 +4,8 @@ import (
 	"context"
 	"fmt"
 	"io"
-	"myclass_service/src/packages/random"
 	"os"
+	"picket/src/packages/random"
 )
 
 type fs struct {

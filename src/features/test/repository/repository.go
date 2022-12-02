@@ -3,8 +3,8 @@ package test_repository
 import (
 	"context"
 	"gorm.io/gorm"
-	"myclass_service/src/entities"
-	"myclass_service/src/repository"
+	"picket/src/entities"
+	"picket/src/repository"
 )
 
 type repo struct {

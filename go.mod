@@ -1,4 +1,4 @@
-module myclass_service
+module picket
 
 go 1.18
 

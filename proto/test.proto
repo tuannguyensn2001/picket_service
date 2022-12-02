@@ -2,6 +2,7 @@ syntax = "proto3";
 package test;
 option go_package = "./testpb";
 import "google/api/annotations.proto";
+import "google/protobuf/timestamp.proto";
 
 message CreateTestRequest{
   string name = 1;
@@ -14,6 +15,23 @@ message CreateTestRequest{
   bool is_authenticate_user = 8;
   uint32 show_mark = 9;
   uint32 show_answer = 10;
+}
+
+message Test {
+  int64  id = 11;
+  string name = 1;
+  int32 time_to_do = 2;
+  google.protobuf.Timestamp time_start = 3;
+  google.protobuf.Timestamp time_end = 4;
+  bool  do_once = 5;
+  string password = 6;
+  uint32 prevent_cheat = 7;
+  bool is_authenticate_user = 8;
+  uint32 show_mark = 9;
+  uint32 show_answer = 10;
+  int64 created_by = 12;
+  google.protobuf.Timestamp created_at = 13;
+  google.protobuf.Timestamp updated_at = 14;
 }
 
 message CreateTestResponse {
@@ -43,6 +61,15 @@ message CreateTestContentResponse {
   string message = 1;
 }
 
+message GetTestsRequest {
+
+}
+
+message GetTestResponse {
+  repeated Test data = 1;
+  string message = 2;
+}
+
 service TestService {
   rpc Create(CreateTestRequest) returns(CreateTestResponse){
     option(google.api.http) = {
@@ -54,6 +81,11 @@ service TestService {
     option(google.api.http) = {
       post: "/api/v1/tests/content",
       body: "*"
+    };
+  }
+  rpc Get(GetTestsRequest) returns(GetTestResponse) {
+    option(google.api.http) = {
+      get: "/api/v1/tests/own"
     };
   }
 }

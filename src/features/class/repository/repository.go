@@ -4,9 +4,9 @@ import (
 	"context"
 	"fmt"
 	"gorm.io/gorm"
-	"myclass_service/src/entities"
-	class_struct "myclass_service/src/features/class/struct"
-	"myclass_service/src/repository"
+	"picket/src/entities"
+	class_struct "picket/src/features/class/struct"
+	"picket/src/repository"
 )
 
 type repo struct {

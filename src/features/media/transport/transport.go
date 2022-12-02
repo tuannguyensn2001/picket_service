@@ -4,8 +4,8 @@ import (
 	"context"
 	"encoding/json"
 	"mime/multipart"
-	errpkg "myclass_service/src/packages/err"
 	"net/http"
+	errpkg "picket/src/packages/err"
 )
 
 const PATH = "src/storage/public"

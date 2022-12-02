@@ -7,8 +7,8 @@ import (
 	"errors"
 	"github.com/go-resty/resty/v2"
 	"go.uber.org/zap"
-	"myclass_service/src/config"
-	"myclass_service/src/entities"
+	"picket/src/config"
+	"picket/src/entities"
 	"strings"
 )
 

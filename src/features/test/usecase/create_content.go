@@ -2,12 +2,9 @@ package test_usecase
 
 import (
 	"context"
-	"errors"
 	"go.uber.org/zap"
-	"gorm.io/gorm"
-	"myclass_service/src/entities"
-	test_struct "myclass_service/src/features/test/struct"
-	errpkg "myclass_service/src/packages/err"
+	"picket/src/entities"
+	test_struct "picket/src/features/test/struct"
 )
 
 func (u *usecase) CreateContent(ctx context.Context, input test_struct.CreateTestContentInput) error {
@@ -33,15 +30,15 @@ func (u *usecase) CreateMultipleChoiceContent(ctx context.Context, input test_st
 		return err
 	}
 
-	testContent, err := u.repository.FindContentByTestId(ctx, test.Id)
-	if err != nil && !errors.Is(err, gorm.ErrRecordNotFound) {
-		zap.S().Error(err)
-		return err
-	}
-	if testContent != nil {
-		zap.S().Error(err)
-		return errpkg.Test.TestHasContent
-	}
+	//testContent, err := u.repository.FindContentByTestId(ctx, test.Id)
+	//if err != nil && !errors.Is(err, gorm.ErrRecordNotFound) {
+	//	zap.S().Error(err)
+	//	return err
+	//}
+	//if testContent != nil {
+	//	zap.S().Error(err)
+	//	return errpkg.Test.TestHasContent
+	//}
 
 	ctx = u.repository.BeginTransaction(ctx)
 

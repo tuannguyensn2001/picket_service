@@ -2,7 +2,7 @@ package test_repository
 
 import (
 	"context"
-	"myclass_service/src/entities"
+	"picket/src/entities"
 )
 
 func (r *repo) FindByTestId(ctx context.Context, id int) (*entities.Test, error) {

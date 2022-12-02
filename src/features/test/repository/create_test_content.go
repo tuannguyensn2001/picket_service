@@ -2,7 +2,7 @@ package test_repository
 
 import (
 	"context"
-	"myclass_service/src/entities"
+	"picket/src/entities"
 )
 
 func (r *repo) CreateTestContent(ctx context.Context, test *entities.TestContent) error {

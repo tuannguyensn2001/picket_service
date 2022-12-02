@@ -7,9 +7,9 @@ import (
 	"github.com/grpc-ecosystem/grpc-gateway/v2/runtime"
 	"google.golang.org/genproto/googleapis/rpc/errdetails"
 	"google.golang.org/grpc/status"
-	"myclass_service/src/app"
-	errpkg "myclass_service/src/packages/err"
 	"net/http"
+	"picket/src/app"
+	errpkg "picket/src/packages/err"
 	"strings"
 )
 

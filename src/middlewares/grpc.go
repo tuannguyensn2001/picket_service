@@ -6,7 +6,7 @@ import (
 	"google.golang.org/genproto/googleapis/rpc/errdetails"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
-	"myclass_service/src/app"
+	"picket/src/app"
 )
 
 func HandleGrpcError(ctx context.Context, p interface{}) error {

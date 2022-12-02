@@ -5,8 +5,8 @@ import (
 	"github.com/go-playground/validator/v10"
 	"go.uber.org/zap"
 	"golang.org/x/crypto/bcrypt"
-	auth_struct "myclass_service/src/features/auth/struct"
-	errpkg "myclass_service/src/packages/err"
+	auth_struct "picket/src/features/auth/struct"
+	errpkg "picket/src/packages/err"
 )
 
 func (u *usecase) Login(ctx context.Context, input auth_struct.LoginInput) (*auth_struct.LoginOutput, error) {

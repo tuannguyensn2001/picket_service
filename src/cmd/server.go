@@ -20,14 +20,14 @@ import (
 	"google.golang.org/grpc/credentials/insecure"
 	"google.golang.org/grpc/reflection"
 	"google.golang.org/protobuf/encoding/protojson"
-	"myclass_service/src/config"
-	"myclass_service/src/middlewares"
-	"myclass_service/src/packages/err"
-	"myclass_service/src/routes"
 	"net"
 	"net/http"
 	"os"
 	"os/signal"
+	"picket/src/config"
+	"picket/src/middlewares"
+	"picket/src/packages/err"
+	"picket/src/routes"
 	"sync"
 )
 

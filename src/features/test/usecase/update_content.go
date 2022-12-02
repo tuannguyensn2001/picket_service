@@ -2,7 +2,7 @@ package test_usecase
 
 import (
 	"context"
-	test_struct "myclass_service/src/features/test/struct"
+	test_struct "picket/src/features/test/struct"
 )
 
 func (u *usecase) UpdateContent(ctx context.Context, input test_struct.UpdateTestContentInput) error {

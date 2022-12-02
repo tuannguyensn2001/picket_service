@@ -4,8 +4,8 @@ import (
 	"go.uber.org/zap"
 	"log"
 	"math/rand"
-	"myclass_service/src/cmd"
-	"myclass_service/src/config"
+	"picket/src/cmd"
+	"picket/src/config"
 	"time"
 )
 

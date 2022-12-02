@@ -6,10 +6,10 @@ import (
 	"go.opentelemetry.io/otel"
 	"go.uber.org/zap"
 	"gorm.io/gorm"
-	"myclass_service/src/config"
-	"myclass_service/src/entities"
-	auth_struct "myclass_service/src/features/auth/struct"
-	errpkg "myclass_service/src/packages/err"
+	"picket/src/config"
+	"picket/src/entities"
+	auth_struct "picket/src/features/auth/struct"
+	errpkg "picket/src/packages/err"
 )
 
 type IRepository interface {

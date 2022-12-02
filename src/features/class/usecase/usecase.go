@@ -4,12 +4,12 @@ import (
 	"context"
 	"github.com/go-playground/validator/v10"
 	"go.uber.org/zap"
-	"myclass_service/src/entities"
-	class_struct "myclass_service/src/features/class/struct"
-	errpkg "myclass_service/src/packages/err"
-	"myclass_service/src/packages/slices"
-	"myclass_service/src/repository"
-	"myclass_service/src/utils"
+	"picket/src/entities"
+	class_struct "picket/src/features/class/struct"
+	errpkg "picket/src/packages/err"
+	"picket/src/packages/slices"
+	"picket/src/repository"
+	"picket/src/utils"
 	"strings"
 )
 

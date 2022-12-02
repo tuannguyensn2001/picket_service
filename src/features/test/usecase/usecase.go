@@ -5,11 +5,11 @@ import (
 	"github.com/go-playground/validator/v10"
 	"github.com/google/uuid"
 	"go.uber.org/zap"
-	"myclass_service/src/entities"
-	test_struct "myclass_service/src/features/test/struct"
-	errpkg "myclass_service/src/packages/err"
-	"myclass_service/src/repository"
-	"myclass_service/src/utils"
+	"picket/src/entities"
+	test_struct "picket/src/features/test/struct"
+	errpkg "picket/src/packages/err"
+	"picket/src/repository"
+	"picket/src/utils"
 	"time"
 )
 
@@ -21,6 +21,8 @@ type IRepository interface {
 	repository.IBaseRepository
 	FindByTestId(ctx context.Context, id int) (*entities.Test, error)
 	FindContentByTestId(ctx context.Context, testId int) (*entities.TestContent, error)
+	FindTestMultipleChoiceByTestId(ctx context.Context, testId int) (*entities.TestMultipleChoice, error)
+	FindTestByUserId(ctx context.Context, userId int) ([]entities.Test, error)
 }
 
 type usecase struct {
