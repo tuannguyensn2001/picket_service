@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: picket-service
+spec:
+  type: NodePort
+  selector:
+    app: picket-pod
+  ports:
+    - port: 21000
+      targetPort: 21000
+      nodePort: 31000

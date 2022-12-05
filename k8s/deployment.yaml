@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: picket-deployment
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: picket-pod
+  template:
+    metadata:
+      labels:
+        app: picket-pod
+    spec:
+      containers:
+        - name: picket
+          image: tuannguyensn2001/picket
+          envFrom:
+            - configMapRef:
+                name: config-picket
