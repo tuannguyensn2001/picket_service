@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: config-picket
+data:
+  APP_HTTP_PORT: "21000"
+  APP_GRPC_PORT: "20000"
+  APP_HTTP_ADDRESS: "0.0.0.0:21000"
+  APP_GRPC_ADDRESS: "0.0.0.0:20000"
+  APP_ENV: "PRODUCTION"
+  APP_SECRET_KEY: "tuannguyensn2001"
+  OAUTH2_GOOGLE_CLIENT_ID: "406915386923-nohqgg2rjqh348qomg6c1964luit4u38.apps.googleusercontent.com"
+  OAUTH2_GOOGLE_CLIENT_SECRET: "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"
+  CLIENT_URL: "http://localhost:3000"
+  DATABASE_POSTGRES: "postgres://postgres:secret@103.180.136.154/postgres"
