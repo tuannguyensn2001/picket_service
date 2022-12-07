@@ -5,7 +5,30 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="be89fe36-2ae4-4bd1-90c9-6d8a64260e82" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/entities/answersheet_event.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Makefile" beforeDir="false" afterPath="$PROJECT_DIR$/Makefile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/error.yml" beforeDir="false" afterPath="$PROJECT_DIR$/error.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/go.mod" beforeDir="false" afterPath="$PROJECT_DIR$/go.mod" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/go.sum" beforeDir="false" afterPath="$PROJECT_DIR$/go.sum" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/proto/answer_sheet.proto" beforeDir="false" afterPath="$PROJECT_DIR$/proto/answer_sheet.proto" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/entities/test.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/entities/test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/packages/err/load.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/packages/err/load.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/packages/err/struct.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/packages/err/struct.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pb/auth/auth.pb.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/pb/auth/auth.pb.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pb/auth/auth.pb.gw.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/pb/auth/auth.pb.gw.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pb/auth/auth_grpc.pb.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/pb/auth/auth_grpc.pb.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pb/class/class.pb.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/pb/class/class.pb.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pb/class/class.pb.gw.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/pb/class/class.pb.gw.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pb/class/class_grpc.pb.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/pb/class/class_grpc.pb.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pb/test/test.pb.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/pb/test/test.pb.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pb/test/test.pb.gw.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/pb/test/test.pb.gw.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pb/test/test_grpc.pb.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/pb/test/test_grpc.pb.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pb/user/user.pb.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/pb/user/user.pb.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pb/user/user.pb.gw.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/pb/user/user.pb.gw.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pb/user/user_grpc.pb.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/pb/user/user_grpc.pb.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/templates/error/load.tmpl" beforeDir="false" afterPath="$PROJECT_DIR$/src/templates/error/load.tmpl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/templates/error/struct.tmpl" beforeDir="false" afterPath="$PROJECT_DIR$/src/templates/error/struct.tmpl" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -34,26 +57,26 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "DefaultGoTemplateProperty": "Go File",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.go.format.on.save.advertiser.fired": "true",
-    "RunOnceActivity.go.formatter.settings.were.checked": "true",
-    "RunOnceActivity.go.migrated.go.modules.settings": "true",
-    "RunOnceActivity.go.modules.go.list.on.any.changes.was.set": "true",
-    "RunOnceActivity.go.watchers.conflict.with.on.save.actions.check.performed": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "go.import.settings.migrated": "true",
-    "go.sdk.automatically.set": "true",
-    "last_opened_file_path": "/home/kt",
-    "node.js.detected.package.eslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "settings.editor.selected.configurable": "preferences.pluginManager"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;DefaultGoTemplateProperty&quot;: &quot;Go File&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.go.format.on.save.advertiser.fired&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.go.formatter.settings.were.checked&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.go.migrated.go.modules.settings&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.go.modules.go.list.on.any.changes.was.set&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.go.watchers.conflict.with.on.save.actions.check.performed&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;go.import.settings.migrated&quot;: &quot;true&quot;,
+    &quot;go.sdk.automatically.set&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/tuannguyen/Workspace/Go/picket_service&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;
   }
-}]]></component>
-  <component name="RunManager" selected="Go Build.go build picket/src/server">
+}</component>
+  <component name="RunManager" selected="Go Test.TestCheckUserDoingTest/user_has_more_than_1_event_and_false in picket/src/features/answersheet/usecase">
     <configuration name="go build myclass_service/src/server" type="GoApplicationRunConfiguration" factoryName="Go Application" nameIsGenerated="true">
       <module name="myclass_service" />
       <working_directory value="$PROJECT_DIR$" />
@@ -74,33 +97,81 @@
       <filePath value="$PROJECT_DIR$/src/server/main.go" />
       <method v="2" />
     </configuration>
-    <configuration name="go build picket/src/server" type="GoApplicationRunConfiguration" factoryName="Go Application" temporary="true" nameIsGenerated="true">
+    <configuration name="TestCheckUserDoingTest in picket/src/features/answersheet/usecase" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
       <module name="myclass_service" />
-      <working_directory value="$PROJECT_DIR$" />
-      <parameters value="server" />
-      <EXTENSION ID="net.ashald.envfile">
-        <option name="IS_ENABLED" value="false" />
-        <option name="IS_SUBST" value="false" />
-        <option name="IS_PATH_MACRO_SUPPORTED" value="false" />
-        <option name="IS_IGNORE_MISSING_FILES" value="false" />
-        <option name="IS_ENABLE_EXPERIMENTAL_INTEGRATIONS" value="false" />
-        <ENTRIES>
-          <ENTRY IS_ENABLED="true" PARSER="runconfig" IS_EXECUTABLE="false" />
-        </ENTRIES>
-      </EXTENSION>
+      <working_directory value="$PROJECT_DIR$/src/features/answersheet/usecase" />
+      <root_directory value="$PROJECT_DIR$" />
       <kind value="PACKAGE" />
-      <package value="picket/src/server" />
+      <package value="picket/src/features/answersheet/usecase" />
       <directory value="$PROJECT_DIR$" />
-      <filePath value="$PROJECT_DIR$/src/server/main.go" />
+      <filePath value="$PROJECT_DIR$" />
+      <framework value="gotest" />
+      <pattern value="^\QTestCheckUserDoingTest\E$" />
+      <method v="2" />
+    </configuration>
+    <configuration name="TestCheckUserDoingTest/user_has_1_event_and_it's_doing in picket/src/features/answersheet/usecase" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
+      <module name="myclass_service" />
+      <working_directory value="$PROJECT_DIR$/src/features/answersheet/usecase" />
+      <root_directory value="$PROJECT_DIR$" />
+      <kind value="PACKAGE" />
+      <package value="picket/src/features/answersheet/usecase" />
+      <directory value="$PROJECT_DIR$" />
+      <filePath value="$PROJECT_DIR$" />
+      <framework value="gotest" />
+      <pattern value="^\QTestCheckUserDoingTest\E$/^\Quser_has_1_event_and_it's_doing\E$" />
+      <method v="2" />
+    </configuration>
+    <configuration name="TestCheckUserDoingTest/user_has_1_event_and_it's_start in picket/src/features/answersheet/usecase" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
+      <module name="myclass_service" />
+      <working_directory value="$PROJECT_DIR$/src/features/answersheet/usecase" />
+      <root_directory value="$PROJECT_DIR$" />
+      <kind value="PACKAGE" />
+      <package value="picket/src/features/answersheet/usecase" />
+      <directory value="$PROJECT_DIR$" />
+      <filePath value="$PROJECT_DIR$" />
+      <framework value="gotest" />
+      <pattern value="^\QTestCheckUserDoingTest\E$/^\Quser_has_1_event_and_it's_start\E$" />
+      <method v="2" />
+    </configuration>
+    <configuration name="TestCheckUserDoingTest/user_has_more_than_1_event in picket/src/features/answersheet/usecase" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
+      <module name="myclass_service" />
+      <working_directory value="$PROJECT_DIR$/src/features/answersheet/usecase" />
+      <root_directory value="$PROJECT_DIR$" />
+      <kind value="PACKAGE" />
+      <package value="picket/src/features/answersheet/usecase" />
+      <directory value="$PROJECT_DIR$" />
+      <filePath value="$PROJECT_DIR$" />
+      <framework value="gotest" />
+      <pattern value="^\QTestCheckUserDoingTest\E$/^\Quser_has_more_than_1_event\E$" />
+      <method v="2" />
+    </configuration>
+    <configuration name="TestCheckUserDoingTest/user_has_more_than_1_event_and_false in picket/src/features/answersheet/usecase" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
+      <module name="myclass_service" />
+      <working_directory value="$PROJECT_DIR$/src/features/answersheet/usecase" />
+      <root_directory value="$PROJECT_DIR$" />
+      <kind value="PACKAGE" />
+      <package value="picket/src/features/answersheet/usecase" />
+      <directory value="$PROJECT_DIR$" />
+      <filePath value="$PROJECT_DIR$" />
+      <framework value="gotest" />
+      <pattern value="^\QTestCheckUserDoingTest\E$/^\Quser_has_more_than_1_event_and_false\E$" />
       <method v="2" />
     </configuration>
     <list>
       <item itemvalue="Go Build.go build myclass_service/src/server" />
-      <item itemvalue="Go Build.go build picket/src/server" />
+      <item itemvalue="Go Test.TestCheckUserDoingTest in picket/src/features/answersheet/usecase" />
+      <item itemvalue="Go Test.TestCheckUserDoingTest/user_has_1_event_and_it's_doing in picket/src/features/answersheet/usecase" />
+      <item itemvalue="Go Test.TestCheckUserDoingTest/user_has_1_event_and_it's_start in picket/src/features/answersheet/usecase" />
+      <item itemvalue="Go Test.TestCheckUserDoingTest/user_has_more_than_1_event in picket/src/features/answersheet/usecase" />
+      <item itemvalue="Go Test.TestCheckUserDoingTest/user_has_more_than_1_event_and_false in picket/src/features/answersheet/usecase" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Go Build.go build picket/src/server" />
+        <item itemvalue="Go Test.TestCheckUserDoingTest/user_has_more_than_1_event_and_false in picket/src/features/answersheet/usecase" />
+        <item itemvalue="Go Test.TestCheckUserDoingTest in picket/src/features/answersheet/usecase" />
+        <item itemvalue="Go Test.TestCheckUserDoingTest/user_has_more_than_1_event in picket/src/features/answersheet/usecase" />
+        <item itemvalue="Go Test.TestCheckUserDoingTest/user_has_1_event_and_it's_doing in picket/src/features/answersheet/usecase" />
+        <item itemvalue="Go Test.TestCheckUserDoingTest/user_has_1_event_and_it's_start in picket/src/features/answersheet/usecase" />
       </list>
     </recent_temporary>
   </component>

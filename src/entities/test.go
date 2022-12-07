@@ -31,6 +31,7 @@ type TestContent struct {
 	Typeable   int        `json:"typeable"`
 	CreatedAt  *time.Time `json:"created_at"`
 	UpdatedAt  *time.Time `json:"updated_at"`
+	MultipleChoice *TestMultipleChoice
 }
 
 type TestMultipleChoiceAnswer struct {
@@ -49,6 +50,7 @@ type TestMultipleChoice struct {
 	Score     float64    `json:"score"`
 	CreatedAt *time.Time `json:"created_at"`
 	UpdatedAt *time.Time `json:"updated_at"`
+	Answers []TestMultipleChoiceAnswer
 }
 
 const (

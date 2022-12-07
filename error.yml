@@ -1,9 +1,4 @@
 general:
-    unauthorized:
-        code: 3
-        message: unauthorized
-        statusCode: 3
-        grpcCode: 13
     internal:
         code: 5
         message: internal server error
@@ -24,6 +19,11 @@ general:
         message: not found
         statusCode: 404
         grpcCode: 404
+    unauthorized:
+        code: 3
+        message: unauthorized
+        statusCode: 3
+        grpcCode: 13
     
 auth:
     codeNotValid:
@@ -53,4 +53,16 @@ test:
         message: test has content
         statusCode: 409
         grpcCode: 409
+    
+answersheet:
+    timeNotValid:
+        code: 12
+        message: time test not valid
+        statusCode: 403
+        grpcCode: 403
+    userDoingTest:
+        code: 13
+        message: user doing test
+        statusCode: 403
+        grpcCode: 403
     

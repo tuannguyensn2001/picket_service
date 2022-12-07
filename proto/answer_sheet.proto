@@ -30,7 +30,7 @@ message StartDoTestRequest {
 }
 
 message StartDoTestResponse {
-
+  string message = 1;
 }
 
 service AnswerSheetService {
