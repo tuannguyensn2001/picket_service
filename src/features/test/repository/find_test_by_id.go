@@ -5,15 +5,62 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
+	"go.opentelemetry.io/otel"
 	"go.uber.org/zap"
 	"picket/src/entities"
+	retrypkg "picket/src/packages/retry"
 	"strings"
 	"time"
 )
 
-func (r *repo) FindByTestId(ctx context.Context, id int) (*entities.Test, error) {
+var tracer = otel.Tracer("test_repository")
 
-	status := r.redis.Get(ctx, fmt.Sprintf("test_%d", id))
+func (r *repo) FindByTestId(ctx context.Context, id int) (*entities.Test, error) {
+	var test *entities.Test
+	var err error
+	r.findTestById.Do(func() {
+		result, _ := r.FindTestFromRedisById(ctx, id)
+		if result != nil {
+			test = result
+			return
+		}
+		result, errDb := r.FindTestFromDBById(ctx, id)
+		if errDb != nil {
+			err = errDb
+			return
+		}
+		test = result
+		r.SaveTestToRedis(ctx, test)
+	})
+	if err != nil {
+		return nil, err
+	}
+	if test != nil {
+		return test, err
+	}
+
+	err = retrypkg.Do(func() error {
+		zap.S().Info("get in retry")
+		result, err := r.FindTestFromRedisById(ctx, id)
+		if err != nil {
+			return err
+		}
+		test = result
+		return nil
+	}, retrypkg.Options{
+		Attempt: 3,
+	})
+
+	if err != nil {
+		return nil, err
+	}
+	return test, nil
+}
+
+func (r *repo) FindTestFromRedisById(ctx context.Context, testId int) (*entities.Test, error) {
+	ctx, span := tracer.Start(ctx, "find test from redis")
+	defer span.End()
+	status := r.redis.Get(ctx, fmt.Sprintf("test_%d", testId))
 	if status.Err() == nil {
 		var test entities.Test
 		r := strings.NewReader(status.Val())
@@ -22,11 +69,17 @@ func (r *repo) FindByTestId(ctx context.Context, id int) (*entities.Test, error)
 			return &test, nil
 		}
 	}
+	return nil, status.Err()
+}
 
+func (r *repo) FindTestFromDBById(ctx context.Context, testId int) (*entities.Test, error) {
+	ctx, span := tracer.Start(ctx, "find test from db")
+	defer span.End()
 	var model model
 	db := r.GetDB(ctx)
-	if err := db.WithContext(ctx).Where("id = ?", id).First(&model).Error; err != nil {
-		return nil, err
+	if errDb := db.WithContext(ctx).Where("id = ?", testId).First(&model).Error; errDb != nil {
+		//return nil, err
+		return nil, errDb
 	}
 	test := entities.Test{
 		Id:                 model.Id,
@@ -46,15 +99,17 @@ func (r *repo) FindByTestId(ctx context.Context, id int) (*entities.Test, error)
 		UpdatedAt:          model.UpdatedAt,
 		Version:            model.Version,
 	}
-	go func() {
-		b := new(bytes.Buffer)
-		err := json.NewEncoder(b).Encode(test)
-		if err != nil {
-			zap.S().Error(err)
-		}
-		status := r.redis.Set(ctx, fmt.Sprintf("test_%d", id), b.String(), 1*time.Hour)
-		zap.S().Error(status.Err())
-	}()
-
 	return &test, nil
+}
+
+func (r *repo) SaveTestToRedis(ctx context.Context, test *entities.Test) error {
+	ctx, span := tracer.Start(ctx, "save test to redis")
+	defer span.End()
+	b := new(bytes.Buffer)
+	err := json.NewEncoder(b).Encode(test)
+	if err != nil {
+		zap.S().Error(err)
+	}
+	status := r.redis.Set(ctx, fmt.Sprintf("test_%d", test.Id), b.String(), 1*time.Hour)
+	return status.Err()
 }
