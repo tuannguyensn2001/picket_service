@@ -110,6 +110,14 @@ func (r *repo) SaveTestToRedis(ctx context.Context, test *entities.Test) error {
 	if err != nil {
 		zap.S().Error(err)
 	}
-	status := r.redis.Set(ctx, fmt.Sprintf("test_%d", test.Id), b.String(), 1*time.Hour)
+	var timeExpr time.Duration
+	if test.TimeStart != nil && test.TimeEnd != nil {
+		start := *test.TimeStart
+		end := *test.TimeEnd
+		timeExpr = start.Sub(end)
+	} else {
+		timeExpr = 1 * time.Hour
+	}
+	status := r.redis.Set(ctx, fmt.Sprintf("test_%d", test.Id), b.String(), timeExpr)
 	return status.Err()
 }
