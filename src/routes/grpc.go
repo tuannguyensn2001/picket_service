@@ -8,6 +8,9 @@ import (
 	"google.golang.org/grpc"
 	"net/http"
 	"picket/src/config"
+	answersheet_repository "picket/src/features/answersheet/repository"
+	answersheet_transport "picket/src/features/answersheet/transport"
+	answersheet_usecase "picket/src/features/answersheet/usecase"
 	auth_transport "picket/src/features/auth/transport"
 	auth_usecase "picket/src/features/auth/usecase"
 	class_repository "picket/src/features/class/repository"
@@ -21,6 +24,7 @@ import (
 	user_repository "picket/src/features/user/repository"
 	user_transport "picket/src/features/user/transport"
 	user_usecase "picket/src/features/user/usecase"
+	answersheetpb "picket/src/pb/answer_sheet"
 	authpb "picket/src/pb/auth"
 	classpb "picket/src/pb/class"
 	testpb "picket/src/pb/test"
@@ -45,18 +49,29 @@ func RouteGrpc(ctx context.Context, s *grpc.Server, config config.IConfig) {
 	classUsecase := class_usecase.New(classRepository)
 	classTransport := class_transport.New(ctx, classUsecase)
 
-	testRepository := test_repository.New(config.GetDB())
+	testRepository := test_repository.New(config.GetDB(), config.GetRedis())
 	testUsecase := test_usecase.New(testRepository)
 	testTransport := test_transport.New(ctx, testUsecase)
+
+	answerSheetRepository := answersheet_repository.New(config.GetDB())
+	answerSheetUsecase := answersheet_usecase.New(answerSheetRepository, testUsecase)
+	answerSheetTransport := answersheet_transport.New(ctx, answerSheetUsecase)
 
 	authpb.RegisterAuthServiceServer(s, authTransport)
 	userpb.RegisterUserServiceServer(s, userTransport)
 	classpb.RegisterClassServiceServer(s, classTransport)
 	testpb.RegisterTestServiceServer(s, testTransport)
+	answersheetpb.RegisterAnswerSheetServiceServer(s, answerSheetTransport)
 }
 
 func RouteGw(ctx context.Context, gw *runtime.ServeMux, conn *grpc.ClientConn) {
-	lists := []handler{authpb.RegisterAuthServiceHandler, userpb.RegisterUserServiceHandler, classpb.RegisterClassServiceHandler, testpb.RegisterTestServiceHandler}
+	lists := []handler{
+		authpb.RegisterAuthServiceHandler,
+		userpb.RegisterUserServiceHandler,
+		classpb.RegisterClassServiceHandler,
+		testpb.RegisterTestServiceHandler,
+		answersheetpb.RegisterAnswerSheetServiceHandler,
+	}
 
 	for _, item := range lists {
 		err := item(ctx, gw, conn)

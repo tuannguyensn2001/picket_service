@@ -2,20 +2,25 @@ package test_repository
 
 import (
 	"context"
+	"github.com/go-redis/redis/v9"
 	"gorm.io/gorm"
 	"picket/src/entities"
 	"picket/src/repository"
+	"sync"
 )
 
 type repo struct {
 	repository.Repository
+	redis *redis.Client
+	s     sync.Once
 }
 
-func New(db *gorm.DB) *repo {
+func New(db *gorm.DB, redis *redis.Client) *repo {
 	return &repo{
-		repository.Repository{
+		Repository: repository.Repository{
 			Db: db,
 		},
+		redis: redis,
 	}
 }
 

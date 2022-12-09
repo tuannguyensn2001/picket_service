@@ -17,6 +17,40 @@ func New(db *gorm.DB) *repository {
 	}
 }
 
-func (r *repository)GetLatestEvent(ctx context.Context,userId int, testId int, number int) ([]entities.AnswerSheetEvent,error)  {
-	return nil,nil
+func (r *repository) GetLatestEvent(ctx context.Context, userId int, testId int, number int) ([]entities.AnswerSheetEvent, error) {
+	events := make([]event, 0)
+	db := r.GetDB(ctx).WithContext(ctx)
+	if err := db.Where("user_id = ?", userId).Where("test_id = ?", testId).Order("id desc").Limit(number).Find(&events).Error; err != nil {
+		return nil, err
+	}
+	result := make([]entities.AnswerSheetEvent, len(events))
+
+	for index, item := range events {
+		result[index] = entities.AnswerSheetEvent{
+			Id:        item.Id,
+			TestId:    item.TestId,
+			UserId:    item.UserId,
+			Event:     item.Event,
+			CreatedAt: item.CreatedAt,
+			UpdatedAt: item.UpdatedAt,
+		}
+	}
+
+	return result, nil
+}
+
+func (r *repository) SendEvent(ctx context.Context, model *entities.AnswerSheetEvent) error {
+	e := event{
+		UserId: model.UserId,
+		TestId: model.TestId,
+		Event:  model.Event,
+	}
+	db := r.GetDB(ctx).WithContext(ctx)
+	if err := db.Create(&e).Error; err != nil {
+		return err
+	}
+	model.Id = e.Id
+	model.CreatedAt = e.CreatedAt
+	model.UpdatedAt = e.UpdatedAt
+	return nil
 }

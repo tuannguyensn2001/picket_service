@@ -6,4 +6,5 @@ var PrivateRoutes = []string{
 	"/api/v1/tests",
 	"/api/v1/tests/content",
 	"/api/v1/tests/own",
+	"/api/v1/answersheets/start",
 }

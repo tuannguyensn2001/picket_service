@@ -1,6 +1,8 @@
 package config
 
 import (
+	"context"
+	"github.com/go-redis/redis/v9"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 	"gorm.io/gorm/logger"
@@ -16,6 +18,7 @@ type config struct {
 	ClientUrl          string
 	db                 *gorm.DB
 	secretKey          string
+	redis              *redis.Client
 }
 
 func GetConfig() config {
@@ -36,8 +39,16 @@ func GetConfig() config {
 	if err != nil {
 		log.Fatalln(err)
 	}
+	rd := redis.NewClient(&redis.Options{
+		Addr: "localhost:6379",
+	})
+	status := rd.Ping(context.TODO())
+	if status.Err() != nil {
+		log.Println("redis ping error", status.Err())
+	}
 
 	result.db = db
+	result.redis = rd
 
 	return result
 }

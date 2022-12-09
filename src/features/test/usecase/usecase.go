@@ -23,6 +23,7 @@ type IRepository interface {
 	FindContentByTestId(ctx context.Context, testId int) (*entities.TestContent, error)
 	FindTestMultipleChoiceByTestId(ctx context.Context, testId int) (*entities.TestMultipleChoice, error)
 	FindTestByUserId(ctx context.Context, userId int) ([]entities.Test, error)
+	FindTestMultipleChoiceAnswer(ctx context.Context, multipleChoiceId int) ([]entities.TestMultipleChoiceAnswer, error)
 }
 
 type usecase struct {

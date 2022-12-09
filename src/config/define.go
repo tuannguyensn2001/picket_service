@@ -1,6 +1,9 @@
 package config
 
-import "gorm.io/gorm"
+import (
+	"github.com/go-redis/redis/v9"
+	"gorm.io/gorm"
+)
 
 type IConfig interface {
 	GetEnv() string
@@ -11,6 +14,7 @@ type IConfig interface {
 	GetClientUrl() string
 	GetDB() *gorm.DB
 	GetSecretKey() string
+	GetRedis() *redis.Client
 }
 
 func (c config) GetGoogleClientId() string {
@@ -27,4 +31,8 @@ func (c config) GetClientUrl() string {
 
 func (c config) GetSecretKey() string {
 	return c.secretKey
+}
+
+func (c config) GetRedis() *redis.Client {
+	return c.redis
 }
