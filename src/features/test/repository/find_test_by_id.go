@@ -8,7 +8,6 @@ import (
 	"go.opentelemetry.io/otel"
 	"go.uber.org/zap"
 	"picket/src/entities"
-	retrypkg "picket/src/packages/retry"
 	"strings"
 	"time"
 )
@@ -16,44 +15,21 @@ import (
 var tracer = otel.Tracer("test_repository")
 
 func (r *repo) FindByTestId(ctx context.Context, id int) (*entities.Test, error) {
-	var test *entities.Test
-	var err error
-	r.findTestById.Do(func() {
-		result, _ := r.FindTestFromRedisById(ctx, id)
-		if result != nil {
-			test = result
-			return
-		}
-		result, errDb := r.FindTestFromDBById(ctx, id)
-		if errDb != nil {
-			err = errDb
-			return
-		}
-		test = result
-		r.SaveTestToRedis(ctx, test)
-	})
-	if err != nil {
-		return nil, err
+	version, ok := ctx.Value("version").(string)
+	if !ok || version == "v1" {
+		return r.FindTestFromDBById(ctx, id)
 	}
-	if test != nil {
+	test, err := r.FindTestFromRedisById(ctx, id)
+	if test != nil && err == nil {
 		return test, err
 	}
-
-	err = retrypkg.Do(func() error {
-		zap.S().Info("get in retry")
-		result, err := r.FindTestFromRedisById(ctx, id)
-		if err != nil {
-			return err
-		}
-		test = result
-		return nil
-	}, retrypkg.Options{
-		Attempt: 3,
-	})
-
+	r.findTestById.Lock()
+	defer r.findTestById.Unlock()
+	test, err = r.FindTestFromDBById(ctx, id)
 	if err != nil {
 		return nil, err
 	}
+	go r.SaveTestToRedis(ctx, test)
 	return test, nil
 }
 

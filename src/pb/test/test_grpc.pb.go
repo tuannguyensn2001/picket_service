@@ -25,6 +25,7 @@ type TestServiceClient interface {
 	Create(ctx context.Context, in *CreateTestRequest, opts ...grpc.CallOption) (*CreateTestResponse, error)
 	CreateContent(ctx context.Context, in *CreateTestContentRequest, opts ...grpc.CallOption) (*CreateTestContentResponse, error)
 	Get(ctx context.Context, in *GetTestsRequest, opts ...grpc.CallOption) (*GetTestResponse, error)
+	GetPreview(ctx context.Context, in *GetTestPreviewRequest, opts ...grpc.CallOption) (*GetTestPreviewResponse, error)
 }
 
 type testServiceClient struct {
@@ -62,6 +63,15 @@ func (c *testServiceClient) Get(ctx context.Context, in *GetTestsRequest, opts .
 	return out, nil
 }
 
+func (c *testServiceClient) GetPreview(ctx context.Context, in *GetTestPreviewRequest, opts ...grpc.CallOption) (*GetTestPreviewResponse, error) {
+	out := new(GetTestPreviewResponse)
+	err := c.cc.Invoke(ctx, "/test.TestService/GetPreview", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // TestServiceServer is the server API for TestService service.
 // All implementations must embed UnimplementedTestServiceServer
 // for forward compatibility
@@ -69,6 +79,7 @@ type TestServiceServer interface {
 	Create(context.Context, *CreateTestRequest) (*CreateTestResponse, error)
 	CreateContent(context.Context, *CreateTestContentRequest) (*CreateTestContentResponse, error)
 	Get(context.Context, *GetTestsRequest) (*GetTestResponse, error)
+	GetPreview(context.Context, *GetTestPreviewRequest) (*GetTestPreviewResponse, error)
 	mustEmbedUnimplementedTestServiceServer()
 }
 
@@ -84,6 +95,9 @@ func (UnimplementedTestServiceServer) CreateContent(context.Context, *CreateTest
 }
 func (UnimplementedTestServiceServer) Get(context.Context, *GetTestsRequest) (*GetTestResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Get not implemented")
+}
+func (UnimplementedTestServiceServer) GetPreview(context.Context, *GetTestPreviewRequest) (*GetTestPreviewResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetPreview not implemented")
 }
 func (UnimplementedTestServiceServer) mustEmbedUnimplementedTestServiceServer() {}
 
@@ -152,6 +166,24 @@ func _TestService_Get_Handler(srv interface{}, ctx context.Context, dec func(int
 	return interceptor(ctx, in, info, handler)
 }
 
+func _TestService_GetPreview_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetTestPreviewRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(TestServiceServer).GetPreview(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/test.TestService/GetPreview",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(TestServiceServer).GetPreview(ctx, req.(*GetTestPreviewRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // TestService_ServiceDesc is the grpc.ServiceDesc for TestService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -170,6 +202,10 @@ var TestService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "Get",
 			Handler:    _TestService_Get_Handler,
+		},
+		{
+			MethodName: "GetPreview",
+			Handler:    _TestService_GetPreview_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

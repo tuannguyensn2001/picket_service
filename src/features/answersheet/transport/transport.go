@@ -3,6 +3,7 @@ package answersheet_transport
 import (
 	"context"
 	answersheet_struct "picket/src/features/answersheet/struct"
+	errpkg "picket/src/packages/err"
 	answersheetpb "picket/src/pb/answer_sheet"
 	"picket/src/utils"
 )
@@ -21,12 +22,17 @@ func New(ctx context.Context, usecase IUsecase) *transport {
 }
 
 func (t *transport) StartDoTest(ctx context.Context, request *answersheetpb.StartDoTestRequest) (*answersheetpb.StartDoTestResponse, error) {
+	// !(a || b ) -> !a && !b
+	if request.Version != "v1" && request.Version != "v2" {
+		panic(errpkg.General.Internal)
+	}
 
-	userId,err := utils.GetAuth(ctx)
+	ctx = context.WithValue(ctx, "version", request.Version)
+	userId, err := utils.GetAuth(ctx)
 	if err != nil {
 		panic(err)
 	}
-	_,err = t.usecase.Start(ctx, int(request.TestId),userId)
+	_, err = t.usecase.Start(ctx, int(request.TestId), userId)
 	if err != nil {
 		panic(err)
 	}
@@ -35,5 +41,5 @@ func (t *transport) StartDoTest(ctx context.Context, request *answersheetpb.Star
 		Message: "success",
 	}
 
-	return resp,nil
+	return resp, nil
 }

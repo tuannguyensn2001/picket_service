@@ -12,6 +12,7 @@ type IUsecase interface {
 	Create(ctx context.Context, input test_struct.CreateTestInput, userId int) error
 	CreateContent(ctx context.Context, input test_struct.CreateTestContentInput) error
 	GetTestsByUserId(ctx context.Context, userId int) ([]entities.Test, error)
+	GetPreview(ctx context.Context, code string) (*entities.Test, error)
 }
 
 type transport struct {

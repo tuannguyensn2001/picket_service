@@ -25,13 +25,13 @@ type Test struct {
 }
 
 type TestContent struct {
-	Id         int        `json:"id"`
-	TestId     int        `json:"test_id"`
-	TypeableId int        `json:"typeable_id"`
-	Typeable   int        `json:"typeable"`
-	CreatedAt  *time.Time `json:"created_at"`
-	UpdatedAt  *time.Time `json:"updated_at"`
-	MultipleChoice *TestMultipleChoice
+	Id             int                 `json:"id"`
+	TestId         int                 `json:"test_id"`
+	TypeableId     int                 `json:"typeable_id"`
+	Typeable       int                 `json:"typeable"`
+	CreatedAt      *time.Time          `json:"created_at"`
+	UpdatedAt      *time.Time          `json:"updated_at"`
+	MultipleChoice *TestMultipleChoice `json:"-"`
 }
 
 type TestMultipleChoiceAnswer struct {
@@ -50,7 +50,7 @@ type TestMultipleChoice struct {
 	Score     float64    `json:"score"`
 	CreatedAt *time.Time `json:"created_at"`
 	UpdatedAt *time.Time `json:"updated_at"`
-	Answers []TestMultipleChoiceAnswer
+	Answers   []TestMultipleChoiceAnswer
 }
 
 const (

@@ -11,9 +11,10 @@ import (
 
 type repo struct {
 	repository.Repository
-	redis        *redis.Client
-	s            sync.Once
-	findTestById sync.Once
+	redis               *redis.Client
+	s                   sync.Once
+	findTestById        sync.Mutex
+	findContentByTestId sync.Mutex
 }
 
 func New(db *gorm.DB, redis *redis.Client) *repo {

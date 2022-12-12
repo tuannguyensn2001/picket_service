@@ -4,6 +4,7 @@ import (
 	"context"
 	"errors"
 	grpc_auth "github.com/grpc-ecosystem/go-grpc-middleware/auth"
+	"go.opentelemetry.io/otel"
 	"google.golang.org/grpc/metadata"
 	"picket/src/config"
 	auth_usecase "picket/src/features/auth/usecase"
@@ -39,6 +40,9 @@ func Auth(config config.IConfig) func(ctx context.Context) (context.Context, err
 
 		authUsecase := auth_usecase.New(nil, oauthService, userUsecase, config)
 
+		tracer := otel.Tracer("middleware")
+		ctx, span := tracer.Start(ctx, "authenticate")
+		defer span.End()
 		token, err := grpc_auth.AuthFromMD(ctx, "bearer")
 		if err != nil {
 			panic(errpkg.Auth.Unauthorized)

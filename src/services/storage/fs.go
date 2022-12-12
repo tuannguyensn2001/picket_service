@@ -29,6 +29,6 @@ func (f *fs) Write(ctx context.Context, fileName string, r io.Reader) error {
 }
 
 func (f *fs) Put(ctx context.Context, dir string, r io.Reader) error {
-	fileName := fmt.Sprintf("%s%s/%s", f.path, dir, random.String())
+	fileName := fmt.Sprintf("%s%s/%s", f.path, dir, randompkg.String())
 	return f.Write(ctx, fileName, r)
 }

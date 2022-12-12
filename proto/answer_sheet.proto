@@ -27,6 +27,7 @@ message Test {
 
 message StartDoTestRequest {
   int64 test_id = 1;
+  string version = 2;
 }
 
 message StartDoTestResponse {
@@ -36,7 +37,7 @@ message StartDoTestResponse {
 service AnswerSheetService {
   rpc StartDoTest(StartDoTestRequest) returns(StartDoTestResponse) {
     option(google.api.http) = {
-      post: "/api/v1/answersheets/start",
+      post: "/api/{version}/answersheets/start",
       body: "*"
     };
   }

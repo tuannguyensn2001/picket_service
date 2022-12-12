@@ -43,6 +43,23 @@ func request_AnswerSheetService_StartDoTest_0(ctx context.Context, marshaler run
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 
+	var (
+		val string
+		ok  bool
+		err error
+		_   = err
+	)
+
+	val, ok = pathParams["version"]
+	if !ok {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "version")
+	}
+
+	protoReq.Version, err = runtime.String(val)
+	if err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "version", err)
+	}
+
 	msg, err := client.StartDoTest(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
 	return msg, metadata, err
 
@@ -58,6 +75,23 @@ func local_request_AnswerSheetService_StartDoTest_0(ctx context.Context, marshal
 	}
 	if err := marshaler.NewDecoder(newReader()).Decode(&protoReq); err != nil && err != io.EOF {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	}
+
+	var (
+		val string
+		ok  bool
+		err error
+		_   = err
+	)
+
+	val, ok = pathParams["version"]
+	if !ok {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "version")
+	}
+
+	protoReq.Version, err = runtime.String(val)
+	if err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "version", err)
 	}
 
 	msg, err := server.StartDoTest(ctx, &protoReq)
@@ -79,7 +113,7 @@ func RegisterAnswerSheetServiceHandlerServer(ctx context.Context, mux *runtime.S
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/answer_sheet.AnswerSheetService/StartDoTest", runtime.WithHTTPPathPattern("/api/v1/answersheets/start"))
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/answer_sheet.AnswerSheetService/StartDoTest", runtime.WithHTTPPathPattern("/api/{version}/answersheets/start"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -143,7 +177,7 @@ func RegisterAnswerSheetServiceHandlerClient(ctx context.Context, mux *runtime.S
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/answer_sheet.AnswerSheetService/StartDoTest", runtime.WithHTTPPathPattern("/api/v1/answersheets/start"))
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/answer_sheet.AnswerSheetService/StartDoTest", runtime.WithHTTPPathPattern("/api/{version}/answersheets/start"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -163,7 +197,7 @@ func RegisterAnswerSheetServiceHandlerClient(ctx context.Context, mux *runtime.S
 }
 
 var (
-	pattern_AnswerSheetService_StartDoTest_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"api", "v1", "answersheets", "start"}, ""))
+	pattern_AnswerSheetService_StartDoTest_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 1, 0, 4, 1, 5, 1, 2, 2, 2, 3}, []string{"api", "version", "answersheets", "start"}, ""))
 )
 
 var (

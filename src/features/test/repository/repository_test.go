@@ -18,13 +18,13 @@ func TestRepo_FindByTestId(t *testing.T) {
 	db, _ := gorm.Open(postgres.Open("postgres://postgres:secret@103.180.136.154/postgres"))
 	repo := New(db, rd)
 
-	ctx := context.TODO()
+	ctx := context.WithValue(context.TODO(), "version", "v2")
 
 	//rd.Del(ctx, "test_1")
 
 	var wg sync.WaitGroup
 
-	for i := 1; i <= 5; i++ {
+	for i := 1; i <= 10; i++ {
 		wg.Add(1)
 		go func() {
 			defer wg.Done()

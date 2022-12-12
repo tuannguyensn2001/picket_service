@@ -3,13 +3,14 @@ package test_usecase
 import (
 	"context"
 	"github.com/go-playground/validator/v10"
-	"github.com/google/uuid"
 	"go.uber.org/zap"
 	"picket/src/entities"
 	test_struct "picket/src/features/test/struct"
 	errpkg "picket/src/packages/err"
+	randompkg "picket/src/packages/random"
 	"picket/src/repository"
 	"picket/src/utils"
+	"strings"
 	"time"
 )
 
@@ -24,6 +25,7 @@ type IRepository interface {
 	FindTestMultipleChoiceByTestId(ctx context.Context, testId int) (*entities.TestMultipleChoice, error)
 	FindTestByUserId(ctx context.Context, userId int) ([]entities.Test, error)
 	FindTestMultipleChoiceAnswer(ctx context.Context, multipleChoiceId int) ([]entities.TestMultipleChoiceAnswer, error)
+	FindByCode(ctx context.Context, code string) (*entities.Test, error)
 }
 
 type usecase struct {
@@ -61,7 +63,7 @@ func (u *usecase) Create(ctx context.Context, input test_struct.CreateTestInput,
 	}
 
 	test := entities.Test{
-		Code:               uuid.New().String(),
+		Code:               strings.ToUpper(randompkg.StringWithLength(5)),
 		Name:               input.Name,
 		TimeToDo:           input.TimeToDo,
 		TimeStart:          timeStart,
