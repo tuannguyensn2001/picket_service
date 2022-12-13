@@ -6,12 +6,6 @@
   <component name="ChangeListManager">
     <list default="true" id="be89fe36-2ae4-4bd1-90c9-6d8a64260e82" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/docker-compose.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/go.mod" beforeDir="false" afterPath="$PROJECT_DIR$/go.mod" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/go.sum" beforeDir="false" afterPath="$PROJECT_DIR$/go.sum" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/entities/answersheet_event.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/entities/answersheet_event.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/features/answersheet/usecase/start.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/features/answersheet/usecase/start.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/features/test/repository/find_test_multiple_choice_by_test_id.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/features/test/repository/find_test_multiple_choice_by_test_id.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

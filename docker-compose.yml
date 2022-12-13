@@ -15,4 +15,4 @@ services:
     environment:
       - POSTGRES_PASSWORD=secret
     volumes:
-      - db:/var/lib/postgresql/data
+      - ./db:/var/lib/postgresql/data
