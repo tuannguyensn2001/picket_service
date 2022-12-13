@@ -1,6 +1,8 @@
 version: "3.9"
 services:
   app:
+    depends_on:
+      - postgres
     image: tuannguyensn2001/picket
     env_file:
       - .env
