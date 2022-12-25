@@ -16,6 +16,9 @@ import (
 	class_repository "picket/src/features/class/repository"
 	class_transport "picket/src/features/class/transport"
 	class_usecase "picket/src/features/class/usecase"
+	job_repository "picket/src/features/job/repository"
+	job_transport "picket/src/features/job/transport"
+	job_usecase "picket/src/features/job/usecase"
 	media_transport "picket/src/features/media/transport"
 	media_usecase "picket/src/features/media/usecase"
 	test_repository "picket/src/features/test/repository"
@@ -53,8 +56,12 @@ func RouteGrpc(ctx context.Context, s *grpc.Server, config config.IConfig) {
 	testUsecase := test_usecase.New(testRepository)
 	testTransport := test_transport.New(ctx, testUsecase)
 
+	jobRepository := job_repository.New(config.GetDB())
+	jobUsecase := job_usecase.New(jobRepository)
+	job_transport.New(ctx, jobUsecase)
+
 	answerSheetRepository := answersheet_repository.New(config.GetDB())
-	answerSheetUsecase := answersheet_usecase.New(answerSheetRepository, testUsecase)
+	answerSheetUsecase := answersheet_usecase.New(answerSheetRepository, testUsecase, jobUsecase)
 	answerSheetTransport := answersheet_transport.New(ctx, answerSheetUsecase)
 
 	authpb.RegisterAuthServiceServer(s, authTransport)

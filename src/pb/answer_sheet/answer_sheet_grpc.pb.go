@@ -23,6 +23,7 @@ const _ = grpc.SupportPackageIsVersion7
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type AnswerSheetServiceClient interface {
 	StartDoTest(ctx context.Context, in *StartDoTestRequest, opts ...grpc.CallOption) (*StartDoTestResponse, error)
+	CheckUserDoingTest(ctx context.Context, in *CheckUserDoingTestRequest, opts ...grpc.CallOption) (*CheckUserDoingTestResponse, error)
 }
 
 type answerSheetServiceClient struct {
@@ -42,11 +43,21 @@ func (c *answerSheetServiceClient) StartDoTest(ctx context.Context, in *StartDoT
 	return out, nil
 }
 
+func (c *answerSheetServiceClient) CheckUserDoingTest(ctx context.Context, in *CheckUserDoingTestRequest, opts ...grpc.CallOption) (*CheckUserDoingTestResponse, error) {
+	out := new(CheckUserDoingTestResponse)
+	err := c.cc.Invoke(ctx, "/answer_sheet.AnswerSheetService/CheckUserDoingTest", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // AnswerSheetServiceServer is the server API for AnswerSheetService service.
 // All implementations must embed UnimplementedAnswerSheetServiceServer
 // for forward compatibility
 type AnswerSheetServiceServer interface {
 	StartDoTest(context.Context, *StartDoTestRequest) (*StartDoTestResponse, error)
+	CheckUserDoingTest(context.Context, *CheckUserDoingTestRequest) (*CheckUserDoingTestResponse, error)
 	mustEmbedUnimplementedAnswerSheetServiceServer()
 }
 
@@ -56,6 +67,9 @@ type UnimplementedAnswerSheetServiceServer struct {
 
 func (UnimplementedAnswerSheetServiceServer) StartDoTest(context.Context, *StartDoTestRequest) (*StartDoTestResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method StartDoTest not implemented")
+}
+func (UnimplementedAnswerSheetServiceServer) CheckUserDoingTest(context.Context, *CheckUserDoingTestRequest) (*CheckUserDoingTestResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CheckUserDoingTest not implemented")
 }
 func (UnimplementedAnswerSheetServiceServer) mustEmbedUnimplementedAnswerSheetServiceServer() {}
 
@@ -88,6 +102,24 @@ func _AnswerSheetService_StartDoTest_Handler(srv interface{}, ctx context.Contex
 	return interceptor(ctx, in, info, handler)
 }
 
+func _AnswerSheetService_CheckUserDoingTest_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CheckUserDoingTestRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(AnswerSheetServiceServer).CheckUserDoingTest(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/answer_sheet.AnswerSheetService/CheckUserDoingTest",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(AnswerSheetServiceServer).CheckUserDoingTest(ctx, req.(*CheckUserDoingTestRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // AnswerSheetService_ServiceDesc is the grpc.ServiceDesc for AnswerSheetService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -98,6 +130,10 @@ var AnswerSheetService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "StartDoTest",
 			Handler:    _AnswerSheetService_StartDoTest_Handler,
+		},
+		{
+			MethodName: "CheckUserDoingTest",
+			Handler:    _AnswerSheetService_CheckUserDoingTest_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

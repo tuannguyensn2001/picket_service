@@ -19,10 +19,14 @@ func (r *repo) FindByTestId(ctx context.Context, id int) (*entities.Test, error)
 	if !ok || version == "v1" {
 		return r.FindTestFromDBById(ctx, id)
 	}
-	test, err := r.FindTestFromRedisById(ctx, id)
+	var test *entities.Test
+	var err error
+	
+	test, err = r.FindTestFromRedisById(ctx, id)
 	if test != nil && err == nil {
 		return test, err
 	}
+
 	r.findTestById.Lock()
 	defer r.findTestById.Unlock()
 	test, err = r.FindTestFromDBById(ctx, id)

@@ -145,6 +145,7 @@ func tracerProvider(url string) (*tracesdk.TracerProvider, error) {
 			semconv.SchemaURL,
 			semconv.ServiceNameKey.String("my-class-service"),
 		)),
+		//tracesdk.WithSyncer(exp),
 	)
 	return tp, nil
 }

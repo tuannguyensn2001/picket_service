@@ -5,6 +5,7 @@ import (
 	"context"
 	"encoding/json"
 	"github.com/segmentio/kafka-go"
+	"github.com/uptrace/opentelemetry-go-extra/otelzap"
 	"go.opentelemetry.io/otel"
 	"go.uber.org/zap"
 	"picket/src/entities"
@@ -15,17 +16,22 @@ import (
 
 var tracer = otel.Tracer("answersheet_usecase")
 
+type PayloadStartTest struct {
+	JobId   int                       `json:"job_id"`
+	Payload entities.AnswerSheetEvent `json:"payload"`
+}
+
 func (u *usecase) Start(ctx context.Context, testId int, userId int) (*answersheet_struct.StartOutput, error) {
-	ctx, span := tracer.Start(ctx, "start doing test")
-	defer span.End()
-	//checkDoing, err := u.CheckUserDoingTest(ctx, userId, testId)
-	//if err != nil {
-	//	return nil, err
-	//}
-	//if checkDoing {
-	//	return nil, errpkg.Answersheet.UserDoingTest
-	//}
-	ctx, span = tracer.Start(ctx, "get test by id")
+
+	checkDoing, err := u.CheckUserDoingTest(ctx, userId, testId)
+	if err != nil {
+		return nil, err
+	}
+	if checkDoing {
+		otelzap.Ctx(ctx).Error(errpkg.Answersheet.UserDoingTest.Message)
+		return nil, errpkg.Answersheet.UserDoingTest
+	}
+	ctx, span := tracer.Start(ctx, "get test by id")
 	test, err := u.testUsecase.GetById(ctx, testId)
 	span.End()
 	if err != nil {
@@ -43,10 +49,13 @@ func (u *usecase) Start(ctx context.Context, testId int, userId int) (*answershe
 		}
 	}
 
+	now := time.Now()
 	event := entities.AnswerSheetEvent{
-		UserId: userId,
-		TestId: testId,
-		Event:  entities.START,
+		UserId:    userId,
+		TestId:    testId,
+		Event:     entities.START,
+		CreatedAt: &now,
+		UpdatedAt: &now,
 	}
 	//ctx, span = tracer.Start(ctx, "create event")
 	//err = u.repository.SendEvent(ctx, &event)
@@ -65,6 +74,23 @@ func (u *usecase) Start(ctx context.Context, testId int, userId int) (*answershe
 	ctx, span = tracer.Start(ctx, "push to kafka")
 	b := new(bytes.Buffer)
 	err = json.NewEncoder(b).Encode(event)
+	if err != nil {
+		return nil, err
+	}
+	job := entities.Job{
+		Payload: b.String(),
+		Status:  entities.INIT,
+	}
+	err = u.jobUsecase.Create(ctx, &job)
+	if err != nil {
+		return nil, err
+	}
+
+	b = new(bytes.Buffer)
+	err = json.NewEncoder(b).Encode(PayloadStartTest{
+		JobId:   job.Id,
+		Payload: event,
+	})
 	if err != nil {
 		return nil, err
 	}

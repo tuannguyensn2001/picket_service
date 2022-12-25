@@ -1,6 +1,7 @@
 package main
 
 import (
+	"github.com/uptrace/opentelemetry-go-extra/otelzap"
 	"go.uber.org/zap"
 	"log"
 	"math/rand"
@@ -19,6 +20,11 @@ func main() {
 	logger := getLogger(cfg)
 	zap.ReplaceGlobals(logger)
 	defer logger.Sync()
+
+	otelLog := otelzap.New(logger)
+	defer otelLog.Sync()
+	undo := otelzap.ReplaceGlobals(otelLog)
+	defer undo()
 
 	err := cmd.GetRoot(cfg).Execute()
 	if err != nil {
