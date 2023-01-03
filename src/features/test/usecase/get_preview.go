@@ -5,6 +5,6 @@ import (
 	"picket/src/entities"
 )
 
-func (u *usecase) GetPreview(ctx context.Context, code string) (*entities.Test, error) {
-	return u.repository.FindByCode(ctx, code)
+func (u *usecase) GetPreview(ctx context.Context, id int) (*entities.Test, error) {
+	return u.repository.FindByTestId(ctx, id)
 }

@@ -22,6 +22,8 @@ type usecase struct {
 type ITestUsecase interface {
 	GetById(ctx context.Context, id int) (*entities.Test, error)
 	GetContent(ctx context.Context, testId int) (*entities.TestContent, error)
+	CheckTestCanDo(ctx context.Context, testId int) error
+	CheckTestAndQuestionValid(ctx context.Context, testId int, questionId int) error
 }
 
 type IJobUsecase interface {

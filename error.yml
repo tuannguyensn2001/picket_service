@@ -1,3 +1,27 @@
+test:
+    testHasContent:
+        code: 10
+        message: test has content
+        statusCode: 409
+        grpcCode: 409
+    questionNotValid:
+        code: 14
+        message: question not valid
+        statusCode: 400
+        grpcCode: 400
+    
+answersheet:
+    timeNotValid:
+        code: 12
+        message: time test not valid
+        statusCode: 403
+        grpcCode: 403
+    userDoingTest:
+        code: 13
+        message: user doing test
+        statusCode: 403
+        grpcCode: 403
+    
 general:
     internal:
         code: 5
@@ -46,23 +70,4 @@ auth:
         message: email or password not valid
         statusCode: 400
         grpcCode: 400
-    
-test:
-    testHasContent:
-        code: 10
-        message: test has content
-        statusCode: 409
-        grpcCode: 409
-    
-answersheet:
-    timeNotValid:
-        code: 12
-        message: time test not valid
-        statusCode: 403
-        grpcCode: 403
-    userDoingTest:
-        code: 13
-        message: user doing test
-        statusCode: 403
-        grpcCode: 403
     

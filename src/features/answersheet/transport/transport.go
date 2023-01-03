@@ -2,6 +2,7 @@ package answersheet_transport
 
 import (
 	"context"
+	"picket/src/entities"
 	answersheet_struct "picket/src/features/answersheet/struct"
 	errpkg "picket/src/packages/err"
 	answersheetpb "picket/src/pb/answer_sheet"
@@ -10,6 +11,9 @@ import (
 
 type IUsecase interface {
 	Start(ctx context.Context, testId int, userId int) (*answersheet_struct.StartOutput, error)
+	UserAnswer(ctx context.Context, userId int, input answersheet_struct.UserAnswerInput) error
+	GetContent(ctx context.Context, testId int, userId int) (*entities.TestContent, error)
+	CheckUserDoingTest(ctx context.Context, userId int, testId int) (bool, error)
 }
 
 type transport struct {
@@ -42,4 +46,87 @@ func (t *transport) StartDoTest(ctx context.Context, request *answersheetpb.Star
 	}
 
 	return resp, nil
+}
+
+func (t *transport) UserAnswer(ctx context.Context, request *answersheetpb.UserAnswerRequest) (*answersheetpb.UserAnswerResponse, error) {
+
+	input := answersheet_struct.UserAnswerInput{
+		TestId:         int(request.TestId),
+		QuestionId:     int(request.QuestionId),
+		Answer:         request.Answer,
+		PreviousAnswer: request.PreviousAnswer,
+	}
+	userId, err := utils.GetAuth(ctx)
+	if err != nil {
+		panic(errpkg.General.Forbidden)
+	}
+	err = t.usecase.UserAnswer(ctx, userId, input)
+	if err != nil {
+		panic(err)
+	}
+
+	resp := &answersheetpb.UserAnswerResponse{
+		Message: "success",
+	}
+
+	return resp, nil
+
+}
+
+func (t *transport) GetTestContent(ctx context.Context, request *answersheetpb.GetTestContentRequest) (*answersheetpb.GetTestContentResponse, error) {
+
+	userId, err := utils.GetAuth(ctx)
+	if err != nil {
+		panic(errpkg.General.Forbidden)
+	}
+	content, err := t.usecase.GetContent(ctx, int(request.TestId), userId)
+	if err != nil {
+		panic(err)
+	}
+
+	data := answersheetpb.TestContent{
+		Id:         int64(content.Id),
+		TestId:     int64(content.TestId),
+		TypeableId: int64(content.TypeableId),
+		Typeable:   int64(content.Typeable),
+		MultipleChoice: &answersheetpb.TestMultipleChoice{
+			Id:       int64(content.MultipleChoice.Id),
+			FilePath: content.MultipleChoice.FilePath,
+			Score:    float32(content.MultipleChoice.Score),
+		},
+	}
+	answers := make([]*answersheetpb.TestMultipleChoiceAnswer, 0)
+
+	for _, item := range content.MultipleChoice.Answers {
+		answers = append(answers, &answersheetpb.TestMultipleChoiceAnswer{
+			Id:                   int64(item.Id),
+			TestMultipleChoiceId: int64(item.TestMultipleChoiceId),
+			Score:                float32(item.Score),
+			Type:                 int32(item.Type),
+		})
+	}
+	data.MultipleChoice.Answers = answers
+
+	resp := answersheetpb.GetTestContentResponse{
+		Message: "success",
+		Data:    &data,
+	}
+	return &resp, nil
+}
+
+func (t *transport) CheckUserDoingTest(ctx context.Context, request *answersheetpb.CheckUserDoingTestRequest) (*answersheetpb.CheckUserDoingTestResponse, error) {
+
+	userId, err := utils.GetAuth(ctx)
+	if err != nil {
+		panic(err)
+	}
+	check, err := t.usecase.CheckUserDoingTest(ctx, userId, int(request.TestId))
+	if err != nil {
+		panic(err)
+	}
+	resp := answersheetpb.CheckUserDoingTestResponse{
+		Check:   check,
+		Message: "success",
+	}
+	return &resp, nil
 }

@@ -44,6 +44,60 @@ message CheckUserDoingTestResponse {
   string message = 2;
 }
 
+message UserAnswerRequest {
+  int64 test_id = 1;
+  int64 question_id = 2;
+  string answer = 3;
+  string previous_answer = 4;
+}
+
+message UserAnswerResponse {
+  string message = 1;
+}
+
+message GetTestContentRequest {
+  int64 testId = 1;
+}
+
+message GetTestContentResponse {
+  string message = 1;
+  TestContent data = 2;
+}
+
+message TestMultipleChoiceAnswer {
+  int64 id = 1;
+  int64  test_multiple_choice_id = 2;
+  float score = 3;
+  int32 type = 4;
+}
+
+message TestMultipleChoice {
+  int64 id = 1;
+  string file_path = 2;
+  float score = 3;
+  repeated TestMultipleChoiceAnswer answers = 4;
+}
+
+message TestContent {
+  int64 id = 1;
+  int64  test_id = 2;
+  int64 typeable_id = 3;
+  int64  typeable = 4;
+  TestMultipleChoice multiple_choice = 5;
+}
+
+message GetLatestStartTimeRequest {
+  int64 test_id = 1;
+  int64 user_id = 2;
+}
+
+message GetLatestStartTimeResponse {
+  string message = 1;
+  google.protobuf.Timestamp data = 2;
+}
+
+
+
 service AnswerSheetService {
   rpc StartDoTest(StartDoTestRequest) returns(StartDoTestResponse) {
     option(google.api.http) = {
@@ -51,5 +105,21 @@ service AnswerSheetService {
       body: "*"
     };
   }
-  rpc CheckUserDoingTest(CheckUserDoingTestRequest) returns(CheckUserDoingTestResponse);
+  rpc CheckUserDoingTest(CheckUserDoingTestRequest) returns(CheckUserDoingTestResponse) {
+    option(google.api.http) = {
+      get: "/api/v1/answersheets/test/{test_id}/check-doing"
+    };
+  }
+  rpc UserAnswer(UserAnswerRequest) returns(UserAnswerResponse) {
+    option(google.api.http) = {
+      post: "/api/v1/answersheets/answer",
+      body: "*"
+    };
+  }
+  rpc GetTestContent(GetTestContentRequest) returns(GetTestContentResponse){
+    option(google.api.http) = {
+      get: "/api/v1/answersheets/test/{testId}/content",
+    };
+  }
+  rpc GetLatestStartTime(GetLatestStartTimeRequest) returns(GetLatestStartTimeResponse);
 }

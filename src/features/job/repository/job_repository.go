@@ -26,6 +26,7 @@ func (r *repo) Create(ctx context.Context, job *entities.Job) error {
 		Payload:      job.Payload,
 		Status:       job.Status,
 		ErrorMessage: job.ErrorMessage,
+		Topic:        job.Topic,
 	}
 
 	if err := db.Create(&m).Error; err != nil {

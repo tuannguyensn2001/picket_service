@@ -7,6 +7,7 @@ import (
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials/insecure"
 	answersheetpb "picket/src/pb/answer_sheet"
+	"time"
 )
 
 func (u *usecase) CheckUserDoingTest(ctx context.Context, userId int, testId int) (bool, error) {
@@ -40,6 +41,27 @@ func (u *usecase) CheckUserDoingTest(ctx context.Context, userId int, testId int
 	ctx, span := tracer.Start(ctx, "call grpc", trace.WithSpanKind(trace.SpanKindClient))
 	defer span.End()
 	conn := answersheetpb.NewAnswerSheetServiceClient(client)
+	respGetLatestStartTime, err := conn.GetLatestStartTime(ctx, &answersheetpb.GetLatestStartTimeRequest{
+		TestId: int64(testId),
+		UserId: int64(userId),
+	})
+	if err != nil {
+		return false, nil
+	}
+	if respGetLatestStartTime.Data != nil {
+		t := respGetLatestStartTime.Data.AsTime()
+		test, err := u.testUsecase.GetById(ctx, testId)
+		if err != nil {
+			return false, err
+		}
+		if test.TimeEnd != nil && test.TimeEnd.Before(time.Now()) {
+			return false, nil
+		}
+		if t.Add(time.Duration(test.TimeToDo) * time.Minute).Before(time.Now()) {
+			return false, nil
+		}
+	}
+
 	resp, err := conn.CheckUserDoingTest(ctx, &answersheetpb.CheckUserDoingTestRequest{
 		UserId: int64(userId),
 		TestId: int64(testId),

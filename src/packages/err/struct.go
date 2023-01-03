@@ -3,20 +3,21 @@ package errpkg
 import "picket/src/app"
 
 type test struct {
-	TestHasContent *app.Error `yaml:"testHasContent"`
+	TestHasContent   *app.Error `yaml:"testHasContent"`
+	QuestionNotValid *app.Error `yaml:"questionNotValid"`
 }
 
 type answersheet struct {
-	UserDoingTest *app.Error `yaml:"userDoingTest"`
 	TimeNotValid  *app.Error `yaml:"timeNotValid"`
+	UserDoingTest *app.Error `yaml:"userDoingTest"`
 }
 
 type general struct {
+	BadRequest   *app.Error `yaml:"badRequest"`
+	NotFound     *app.Error `yaml:"notFound"`
 	Unauthorized *app.Error `yaml:"unauthorized"`
 	Internal     *app.Error `yaml:"internal"`
 	Forbidden    *app.Error `yaml:"forbidden"`
-	BadRequest   *app.Error `yaml:"badRequest"`
-	NotFound     *app.Error `yaml:"notFound"`
 }
 
 type auth struct {

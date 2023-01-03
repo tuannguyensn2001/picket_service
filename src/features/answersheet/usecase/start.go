@@ -7,7 +7,6 @@ import (
 	"github.com/segmentio/kafka-go"
 	"github.com/uptrace/opentelemetry-go-extra/otelzap"
 	"go.opentelemetry.io/otel"
-	"go.uber.org/zap"
 	"picket/src/entities"
 	answersheet_struct "picket/src/features/answersheet/struct"
 	errpkg "picket/src/packages/err"
@@ -17,6 +16,11 @@ import (
 var tracer = otel.Tracer("answersheet_usecase")
 
 type PayloadStartTest struct {
+	JobId   int                       `json:"job_id"`
+	Payload entities.AnswerSheetEvent `json:"payload"`
+}
+
+type PayloadAnswerTest struct {
 	JobId   int                       `json:"job_id"`
 	Payload entities.AnswerSheetEvent `json:"payload"`
 }
@@ -64,12 +68,12 @@ func (u *usecase) Start(ctx context.Context, testId int, userId int) (*answershe
 	//	return nil, err
 	//}
 
-	ctx, span = tracer.Start(ctx, "get content")
-	content, err := u.testUsecase.GetContent(ctx, testId)
-	span.End()
-	if err != nil {
-		return nil, err
-	}
+	//ctx, span = tracer.Start(ctx, "get content")
+	//content, err := u.testUsecase.GetContent(ctx, testId)
+	//span.End()
+	//if err != nil {
+	//	return nil, err
+	//}
 
 	ctx, span = tracer.Start(ctx, "push to kafka")
 	b := new(bytes.Buffer)
@@ -80,9 +84,12 @@ func (u *usecase) Start(ctx context.Context, testId int, userId int) (*answershe
 	job := entities.Job{
 		Payload: b.String(),
 		Status:  entities.INIT,
+		Topic:   "start-test",
 	}
+	ctx = u.repository.BeginTransaction(ctx)
 	err = u.jobUsecase.Create(ctx, &job)
 	if err != nil {
+		u.repository.Rollback(ctx)
 		return nil, err
 	}
 
@@ -92,6 +99,7 @@ func (u *usecase) Start(ctx context.Context, testId int, userId int) (*answershe
 		Payload: event,
 	})
 	if err != nil {
+		u.repository.Rollback(ctx)
 		return nil, err
 	}
 
@@ -107,9 +115,11 @@ func (u *usecase) Start(ctx context.Context, testId int, userId int) (*answershe
 	})
 	span.End()
 	if err != nil {
+		u.repository.Rollback(ctx)
 		return nil, err
 	}
-	zap.S().Info(content)
+
+	u.repository.Commit(ctx)
 
 	return nil, nil
 }

@@ -1,0 +1,1 @@
+alter table topic drop column topic;

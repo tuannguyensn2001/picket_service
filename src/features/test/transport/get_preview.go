@@ -2,13 +2,13 @@ package test_transport
 
 import (
 	"context"
-	"google.golang.org/protobuf/types/known/timestamppb"
 	testpb "picket/src/pb/test"
+	"picket/src/utils"
 )
 
 func (t *transport) GetPreview(ctx context.Context, request *testpb.GetTestPreviewRequest) (*testpb.GetTestPreviewResponse, error) {
 
-	test, err := t.usecase.GetPreview(ctx, request.Code)
+	test, err := t.usecase.GetPreview(ctx, int(request.Id))
 	if err != nil {
 		panic(err)
 	}
@@ -19,8 +19,8 @@ func (t *transport) GetPreview(ctx context.Context, request *testpb.GetTestPrevi
 			Id:        int64(test.Id),
 			Name:      test.Name,
 			TimeToDo:  int32(test.TimeToDo),
-			TimeStart: timestamppb.New(*test.TimeStart),
-			TimeEnd:   timestamppb.New(*test.TimeEnd),
+			TimeStart: utils.ParseTimeToGrpc(test.TimeStart),
+			TimeEnd:   utils.ParseTimeToGrpc(test.TimeEnd),
 			DoOnce:    test.DoOnce,
 		},
 	}

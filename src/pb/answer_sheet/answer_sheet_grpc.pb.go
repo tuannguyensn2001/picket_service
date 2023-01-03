@@ -24,6 +24,9 @@ const _ = grpc.SupportPackageIsVersion7
 type AnswerSheetServiceClient interface {
 	StartDoTest(ctx context.Context, in *StartDoTestRequest, opts ...grpc.CallOption) (*StartDoTestResponse, error)
 	CheckUserDoingTest(ctx context.Context, in *CheckUserDoingTestRequest, opts ...grpc.CallOption) (*CheckUserDoingTestResponse, error)
+	UserAnswer(ctx context.Context, in *UserAnswerRequest, opts ...grpc.CallOption) (*UserAnswerResponse, error)
+	GetTestContent(ctx context.Context, in *GetTestContentRequest, opts ...grpc.CallOption) (*GetTestContentResponse, error)
+	GetLatestStartTime(ctx context.Context, in *GetLatestStartTimeRequest, opts ...grpc.CallOption) (*GetLatestStartTimeResponse, error)
 }
 
 type answerSheetServiceClient struct {
@@ -52,12 +55,42 @@ func (c *answerSheetServiceClient) CheckUserDoingTest(ctx context.Context, in *C
 	return out, nil
 }
 
+func (c *answerSheetServiceClient) UserAnswer(ctx context.Context, in *UserAnswerRequest, opts ...grpc.CallOption) (*UserAnswerResponse, error) {
+	out := new(UserAnswerResponse)
+	err := c.cc.Invoke(ctx, "/answer_sheet.AnswerSheetService/UserAnswer", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *answerSheetServiceClient) GetTestContent(ctx context.Context, in *GetTestContentRequest, opts ...grpc.CallOption) (*GetTestContentResponse, error) {
+	out := new(GetTestContentResponse)
+	err := c.cc.Invoke(ctx, "/answer_sheet.AnswerSheetService/GetTestContent", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *answerSheetServiceClient) GetLatestStartTime(ctx context.Context, in *GetLatestStartTimeRequest, opts ...grpc.CallOption) (*GetLatestStartTimeResponse, error) {
+	out := new(GetLatestStartTimeResponse)
+	err := c.cc.Invoke(ctx, "/answer_sheet.AnswerSheetService/GetLatestStartTime", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // AnswerSheetServiceServer is the server API for AnswerSheetService service.
 // All implementations must embed UnimplementedAnswerSheetServiceServer
 // for forward compatibility
 type AnswerSheetServiceServer interface {
 	StartDoTest(context.Context, *StartDoTestRequest) (*StartDoTestResponse, error)
 	CheckUserDoingTest(context.Context, *CheckUserDoingTestRequest) (*CheckUserDoingTestResponse, error)
+	UserAnswer(context.Context, *UserAnswerRequest) (*UserAnswerResponse, error)
+	GetTestContent(context.Context, *GetTestContentRequest) (*GetTestContentResponse, error)
+	GetLatestStartTime(context.Context, *GetLatestStartTimeRequest) (*GetLatestStartTimeResponse, error)
 	mustEmbedUnimplementedAnswerSheetServiceServer()
 }
 
@@ -70,6 +103,15 @@ func (UnimplementedAnswerSheetServiceServer) StartDoTest(context.Context, *Start
 }
 func (UnimplementedAnswerSheetServiceServer) CheckUserDoingTest(context.Context, *CheckUserDoingTestRequest) (*CheckUserDoingTestResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CheckUserDoingTest not implemented")
+}
+func (UnimplementedAnswerSheetServiceServer) UserAnswer(context.Context, *UserAnswerRequest) (*UserAnswerResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UserAnswer not implemented")
+}
+func (UnimplementedAnswerSheetServiceServer) GetTestContent(context.Context, *GetTestContentRequest) (*GetTestContentResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetTestContent not implemented")
+}
+func (UnimplementedAnswerSheetServiceServer) GetLatestStartTime(context.Context, *GetLatestStartTimeRequest) (*GetLatestStartTimeResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetLatestStartTime not implemented")
 }
 func (UnimplementedAnswerSheetServiceServer) mustEmbedUnimplementedAnswerSheetServiceServer() {}
 
@@ -120,6 +162,60 @@ func _AnswerSheetService_CheckUserDoingTest_Handler(srv interface{}, ctx context
 	return interceptor(ctx, in, info, handler)
 }
 
+func _AnswerSheetService_UserAnswer_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UserAnswerRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(AnswerSheetServiceServer).UserAnswer(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/answer_sheet.AnswerSheetService/UserAnswer",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(AnswerSheetServiceServer).UserAnswer(ctx, req.(*UserAnswerRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _AnswerSheetService_GetTestContent_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetTestContentRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(AnswerSheetServiceServer).GetTestContent(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/answer_sheet.AnswerSheetService/GetTestContent",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(AnswerSheetServiceServer).GetTestContent(ctx, req.(*GetTestContentRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _AnswerSheetService_GetLatestStartTime_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetLatestStartTimeRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(AnswerSheetServiceServer).GetLatestStartTime(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/answer_sheet.AnswerSheetService/GetLatestStartTime",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(AnswerSheetServiceServer).GetLatestStartTime(ctx, req.(*GetLatestStartTimeRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // AnswerSheetService_ServiceDesc is the grpc.ServiceDesc for AnswerSheetService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -134,6 +230,18 @@ var AnswerSheetService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "CheckUserDoingTest",
 			Handler:    _AnswerSheetService_CheckUserDoingTest_Handler,
+		},
+		{
+			MethodName: "UserAnswer",
+			Handler:    _AnswerSheetService_UserAnswer_Handler,
+		},
+		{
+			MethodName: "GetTestContent",
+			Handler:    _AnswerSheetService_GetTestContent_Handler,
+		},
+		{
+			MethodName: "GetLatestStartTime",
+			Handler:    _AnswerSheetService_GetLatestStartTime_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

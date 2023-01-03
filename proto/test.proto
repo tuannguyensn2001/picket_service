@@ -72,6 +72,7 @@ message GetTestResponse {
 
 message GetTestPreviewRequest {
   string code = 1;
+  int64 id = 2;
 }
 
 message TestPreview {
@@ -107,7 +108,7 @@ service TestService {
   }
   rpc GetPreview(GetTestPreviewRequest) returns(GetTestPreviewResponse) {
     option(google.api.http) = {
-      get: "/api/v1/tests/preview/{code}"
+      get: "/api/v1/tests/preview/{id}"
     };
   }
 
