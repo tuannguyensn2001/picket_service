@@ -2,6 +2,7 @@ package answersheet_usecase
 
 import (
 	"context"
+	"errors"
 	"go.opentelemetry.io/contrib/instrumentation/google.golang.org/grpc/otelgrpc"
 	"go.opentelemetry.io/otel/trace"
 	"google.golang.org/grpc"
@@ -70,4 +71,25 @@ func (u *usecase) CheckUserDoingTest(ctx context.Context, userId int, testId int
 		return false, err
 	}
 	return resp.Check, nil
+}
+
+func (u *usecase) GetLatestStartTime(ctx context.Context, testId int, userId int) (*time.Time, error) {
+	client, err := grpc.Dial("localhost:30000", grpc.WithTransportCredentials(insecure.NewCredentials()), grpc.WithUnaryInterceptor(otelgrpc.UnaryClientInterceptor()))
+	if err != nil {
+		return nil, err
+	}
+	defer client.Close()
+	conn := answersheetpb.NewAnswerSheetServiceClient(client)
+	respGetLatestStartTime, err := conn.GetLatestStartTime(ctx, &answersheetpb.GetLatestStartTimeRequest{
+		TestId: int64(testId),
+		UserId: int64(userId),
+	})
+	if err != nil {
+		return nil, err
+	}
+	if respGetLatestStartTime.Data != nil {
+		result := respGetLatestStartTime.Data.AsTime()
+		return &result, nil
+	}
+	return nil, errors.New("user hasn't start test")
 }

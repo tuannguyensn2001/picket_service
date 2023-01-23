@@ -2,11 +2,11 @@ package answersheet_usecase
 
 import (
 	"context"
-	"picket/src/entities"
+	answersheet_struct "picket/src/features/answersheet/struct"
 	errpkg "picket/src/packages/err"
 )
 
-func (u *usecase) GetContent(ctx context.Context, testId int, userId int) (*entities.TestContent, error) {
+func (u *usecase) GetContent(ctx context.Context, testId int, userId int) (*answersheet_struct.GetContentOutput, error) {
 	check, err := u.CheckUserDoingTest(ctx, userId, testId)
 	if err != nil {
 		return nil, err
@@ -19,5 +19,14 @@ func (u *usecase) GetContent(ctx context.Context, testId int, userId int) (*enti
 		return nil, err
 	}
 
-	return content, nil
+	timeLeft, err := u.GetTimeLeft(ctx, testId, userId)
+	if err != nil {
+		return nil, err
+	}
+
+	output := answersheet_struct.GetContentOutput{
+		Content:  content,
+		TimeLeft: timeLeft,
+	}
+	return &output, nil
 }

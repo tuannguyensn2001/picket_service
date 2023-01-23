@@ -5,6 +5,8 @@ package answer_sheet;
 option go_package="./answersheetpb";
 import "google/api/annotations.proto";
 import "google/protobuf/timestamp.proto";
+import "google/protobuf/duration.proto";
+
 
 
 
@@ -84,6 +86,8 @@ message TestContent {
   int64 typeable_id = 3;
   int64  typeable = 4;
   TestMultipleChoice multiple_choice = 5;
+  google.protobuf.Duration time_left = 6;
+
 }
 
 message GetLatestStartTimeRequest {

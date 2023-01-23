@@ -1,6 +1,9 @@
 package answersheet_struct
 
-import "picket/src/entities"
+import (
+	"picket/src/entities"
+	"time"
+)
 
 type StartOutput struct {
 	Test    *entities.Test
@@ -12,4 +15,9 @@ type UserAnswerInput struct {
 	QuestionId     int    `validate:"required"`
 	Answer         string `validate:"required"`
 	PreviousAnswer string
+}
+
+type GetContentOutput struct {
+	Content  *entities.TestContent
+	TimeLeft *time.Duration
 }

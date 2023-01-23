@@ -15,6 +15,8 @@ import (
 )
 
 func (u *usecase) UserAnswer(ctx context.Context, userId int, input answersheet_struct.UserAnswerInput) error {
+	ctx, span := tracer.Start(ctx, "user answer")
+	defer span.End()
 	validate := validator.New()
 	err := validate.Struct(input)
 	if err != nil {
@@ -59,10 +61,13 @@ func (u *usecase) UserAnswer(ctx context.Context, userId int, input answersheet_
 		Topic:   "answer-test",
 	}
 	ctx = u.repository.BeginTransaction(ctx)
+	ctx, span = tracer.Start(ctx, "create job")
 	if err := u.jobUsecase.Create(ctx, &job); err != nil {
+		span.End()
 		u.repository.Rollback(ctx)
 		return err
 	}
+	span.End()
 	b.Reset()
 	payload := PayloadAnswerTest{
 		JobId:   job.Id,
@@ -81,15 +86,17 @@ func (u *usecase) UserAnswer(ctx context.Context, userId int, input answersheet_
 	}
 
 	key := fmt.Sprintf("%d-%d", userId, input.TestId)
-
+	ctx, span = tracer.Start(ctx, "push to kafka")
 	if err := w.WriteMessages(ctx, kafka.Message{
 		Key:   []byte(key),
 		Value: b.Bytes(),
 	}); err != nil {
+		span.End()
 		u.repository.Rollback(ctx)
 		return err
 	}
 
+	span.End()
 	u.repository.Commit(ctx)
 
 	return nil

@@ -2,7 +2,7 @@ package answersheet_transport
 
 import (
 	"context"
-	"picket/src/entities"
+	"google.golang.org/protobuf/types/known/durationpb"
 	answersheet_struct "picket/src/features/answersheet/struct"
 	errpkg "picket/src/packages/err"
 	answersheetpb "picket/src/pb/answer_sheet"
@@ -12,7 +12,7 @@ import (
 type IUsecase interface {
 	Start(ctx context.Context, testId int, userId int) (*answersheet_struct.StartOutput, error)
 	UserAnswer(ctx context.Context, userId int, input answersheet_struct.UserAnswerInput) error
-	GetContent(ctx context.Context, testId int, userId int) (*entities.TestContent, error)
+	GetContent(ctx context.Context, testId int, userId int) (*answersheet_struct.GetContentOutput, error)
 	CheckUserDoingTest(ctx context.Context, userId int, testId int) (bool, error)
 }
 
@@ -79,10 +79,11 @@ func (t *transport) GetTestContent(ctx context.Context, request *answersheetpb.G
 	if err != nil {
 		panic(errpkg.General.Forbidden)
 	}
-	content, err := t.usecase.GetContent(ctx, int(request.TestId), userId)
+	output, err := t.usecase.GetContent(ctx, int(request.TestId), userId)
 	if err != nil {
 		panic(err)
 	}
+	content := output.Content
 
 	data := answersheetpb.TestContent{
 		Id:         int64(content.Id),
@@ -95,6 +96,12 @@ func (t *transport) GetTestContent(ctx context.Context, request *answersheetpb.G
 			Score:    float32(content.MultipleChoice.Score),
 		},
 	}
+
+	if output.TimeLeft != nil {
+		left := durationpb.New(*output.TimeLeft)
+		data.TimeLeft = left
+	}
+
 	answers := make([]*answersheetpb.TestMultipleChoiceAnswer, 0)
 
 	for _, item := range content.MultipleChoice.Answers {

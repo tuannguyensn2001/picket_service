@@ -7,6 +7,8 @@ import (
 )
 
 func (u *usecase) CheckTestCanDo(ctx context.Context, testId int) error {
+	ctx, span := tracer.Start(ctx, "get test by id")
+	defer span.End()
 	test, err := u.repository.FindByTestId(ctx, testId)
 	if err != nil {
 		return err

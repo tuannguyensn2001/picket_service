@@ -109,6 +109,7 @@ func (u *usecase) Start(ctx context.Context, testId int, userId int) (*answershe
 		AllowAutoTopicCreation: true,
 		Balancer:               &kafka.LeastBytes{},
 		BatchSize:              1,
+		MaxAttempts:            15,
 	}
 	err = w.WriteMessages(ctx, kafka.Message{
 		Value: b.Bytes(),
