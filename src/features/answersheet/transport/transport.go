@@ -2,6 +2,9 @@ package answersheet_transport
 
 import (
 	"context"
+	"go.opentelemetry.io/contrib/instrumentation/google.golang.org/grpc/otelgrpc"
+	"google.golang.org/grpc"
+	"google.golang.org/grpc/credentials/insecure"
 	"google.golang.org/protobuf/types/known/durationpb"
 	answersheet_struct "picket/src/features/answersheet/struct"
 	errpkg "picket/src/packages/err"
@@ -136,4 +139,21 @@ func (t *transport) CheckUserDoingTest(ctx context.Context, request *answersheet
 		Message: "success",
 	}
 	return &resp, nil
+}
+
+func (t *transport) GetCurrentTest(ctx context.Context, request *answersheetpb.GetCurrentTestRequest) (*answersheetpb.GetCurrentTestResponse, error) {
+	userId, err := utils.GetAuth(ctx)
+	if err != nil {
+		panic(err)
+	}
+	client, err := grpc.Dial("localhost:30000", grpc.WithTransportCredentials(insecure.NewCredentials()), grpc.WithUnaryInterceptor(otelgrpc.UnaryClientInterceptor()))
+	if err != nil {
+		return nil, err
+	}
+	conn := answersheetpb.NewAnswerSheetServiceClient(client)
+	resp, err := conn.GetCurrentTest(ctx, &answersheetpb.GetCurrentTestRequest{
+		UserId: int64(userId),
+		TestId: request.TestId,
+	})
+	return resp, err
 }

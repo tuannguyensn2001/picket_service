@@ -10,4 +10,6 @@ var PrivateRoutes = []string{
 	"/api/v1/answersheets/answer",
 	"/api/v1/answersheets/test/{testId}/content",
 	"/api/v1/answersheets/test/{test_id}/check-doing",
+	"/api/v1/answersheets/test/{test_id}/assignment",
+	"/api/v1/answersheets/submit",
 }

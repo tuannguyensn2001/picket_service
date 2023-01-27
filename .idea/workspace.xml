@@ -7,15 +7,11 @@
     <list default="true" id="be89fe36-2ae4-4bd1-90c9-6d8a64260e82" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/proto/answer_sheet.proto" beforeDir="false" afterPath="$PROJECT_DIR$/proto/answer_sheet.proto" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/features/answersheet/struct/struct.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/features/answersheet/struct/struct.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/features/answersheet/transport/transport.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/features/answersheet/transport/transport.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/features/answersheet/usecase/check_user_doing.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/features/answersheet/usecase/check_user_doing.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/features/answersheet/usecase/get_content.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/features/answersheet/usecase/get_content.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/features/answersheet/usecase/start.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/features/answersheet/usecase/start.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/features/answersheet/usecase/user_answer.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/features/answersheet/usecase/user_answer.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/features/test/usecase/check_test_and_question_valid.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/features/test/usecase/check_test_and_question_valid.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/features/test/usecase/check_test_can_do.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/features/test/usecase/check_test_can_do.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/pb/answer_sheet/answer_sheet.pb.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/pb/answer_sheet/answer_sheet.pb.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pb/answer_sheet/answer_sheet.pb.gw.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/pb/answer_sheet/answer_sheet.pb.gw.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pb/answer_sheet/answer_sheet_grpc.pb.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/pb/answer_sheet/answer_sheet_grpc.pb.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/routes/protected.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes/protected.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
