@@ -78,6 +78,7 @@ func (u *usecase) Start(ctx context.Context, testId int, userId int) (*answershe
 	ctx, span = tracer.Start(ctx, "push to kafka")
 	b := new(bytes.Buffer)
 	err = json.NewEncoder(b).Encode(event)
+	
 	if err != nil {
 		return nil, err
 	}

@@ -2,14 +2,22 @@ package errpkg
 
 import "picket/src/app"
 
+type auth struct {
+	CodeNotValid   *app.Error `yaml:"codeNotValid"`
+	Unauthorized   *app.Error `yaml:"unauthorized"`
+	AccountExisted *app.Error `yaml:"accountExisted"`
+	LoginFailed    *app.Error `yaml:"loginFailed"`
+}
+
 type test struct {
 	TestHasContent   *app.Error `yaml:"testHasContent"`
 	QuestionNotValid *app.Error `yaml:"questionNotValid"`
+	TestNotValid     *app.Error `yaml:"testNotValid"`
 }
 
 type answersheet struct {
-	TimeNotValid  *app.Error `yaml:"timeNotValid"`
 	UserDoingTest *app.Error `yaml:"userDoingTest"`
+	TimeNotValid  *app.Error `yaml:"timeNotValid"`
 }
 
 type general struct {
@@ -20,16 +28,9 @@ type general struct {
 	Forbidden    *app.Error `yaml:"forbidden"`
 }
 
-type auth struct {
-	AccountExisted *app.Error `yaml:"accountExisted"`
-	LoginFailed    *app.Error `yaml:"loginFailed"`
-	CodeNotValid   *app.Error `yaml:"codeNotValid"`
-	Unauthorized   *app.Error `yaml:"unauthorized"`
-}
-
 type rootErr struct {
+	Auth        *auth        `yaml:"auth"`
 	Test        *test        `yaml:"test"`
 	Answersheet *answersheet `yaml:"answersheet"`
 	General     *general     `yaml:"general"`
-	Auth        *auth        `yaml:"auth"`
 }

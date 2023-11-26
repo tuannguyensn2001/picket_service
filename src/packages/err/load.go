@@ -7,10 +7,10 @@ import (
 )
 
 
+var Auth *auth
 var Test *test
 var Answersheet *answersheet
 var General *general
-var Auth *auth
 
 func LoadError() {
 	root := rootErr{}
@@ -29,10 +29,10 @@ func LoadError() {
 
 	//General = root.General
 	
+    Auth = root.Auth 
     Test = root.Test 
     Answersheet = root.Answersheet 
     General = root.General 
-    Auth = root.Auth 
 }
 
 func LoadErrorFromPath(path string) {
@@ -51,8 +51,8 @@ func LoadErrorFromPath(path string) {
 
     	//General = root.General
     	
+        Auth = root.Auth 
         Test = root.Test 
         Answersheet = root.Answersheet 
         General = root.General 
-        Auth = root.Auth 
 }

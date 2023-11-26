@@ -1,15 +1,3 @@
-test:
-    testHasContent:
-        code: 10
-        message: test has content
-        statusCode: 409
-        grpcCode: 409
-    questionNotValid:
-        code: 14
-        message: question not valid
-        statusCode: 400
-        grpcCode: 400
-    
 answersheet:
     timeNotValid:
         code: 12
@@ -23,16 +11,6 @@ answersheet:
         grpcCode: 403
     
 general:
-    internal:
-        code: 5
-        message: internal server error
-        statusCode: 500
-        grpcCode: 500
-    forbidden:
-        code: 1
-        message: Forbidden
-        statusCode: 403
-        grpcCode: 13
     badRequest:
         code: 2
         message: Data not valid
@@ -47,6 +25,16 @@ general:
         code: 3
         message: unauthorized
         statusCode: 3
+        grpcCode: 13
+    internal:
+        code: 5
+        message: internal server error
+        statusCode: 500
+        grpcCode: 500
+    forbidden:
+        code: 1
+        message: Forbidden
+        statusCode: 403
         grpcCode: 13
     
 auth:
@@ -68,6 +56,23 @@ auth:
     loginFailed:
         code: 9
         message: email or password not valid
+        statusCode: 400
+        grpcCode: 400
+    
+test:
+    testHasContent:
+        code: 10
+        message: test has content
+        statusCode: 409
+        grpcCode: 409
+    questionNotValid:
+        code: 14
+        message: question not valid
+        statusCode: 400
+        grpcCode: 400
+    testNotValid:
+        code: 15
+        message: test not valid
         statusCode: 400
         grpcCode: 400
     

@@ -3,8 +3,10 @@ package answersheet_transport
 import (
 	"context"
 	"go.opentelemetry.io/contrib/instrumentation/google.golang.org/grpc/otelgrpc"
+	"go.uber.org/zap"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials/insecure"
+	"google.golang.org/grpc/metadata"
 	"google.golang.org/protobuf/types/known/durationpb"
 	answersheet_struct "picket/src/features/answersheet/struct"
 	errpkg "picket/src/packages/err"
@@ -156,4 +158,14 @@ func (t *transport) GetCurrentTest(ctx context.Context, request *answersheetpb.G
 		TestId: request.TestId,
 	})
 	return resp, err
+}
+
+func (t *transport) SubmitTest(ctx context.Context, request *answersheetpb.SubmitTestRequest) (*answersheetpb.SubmitTestResponse, error) {
+
+	md, _ := metadata.FromIncomingContext(ctx)
+	zap.S().Info(md)
+	resp := &answersheetpb.SubmitTestResponse{
+		Message: "success",
+	}
+	return resp, nil
 }
