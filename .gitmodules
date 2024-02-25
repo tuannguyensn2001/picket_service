@@ -1,0 +1,6 @@
+[submodule "picket-main-service"]
+	path = picket-main-service
+	url = https://github.com/tuannguyensn2001/picket-main-service
+[submodule "picket-answersheet-service"]
+	path = picket-answersheet-service
+	url = https://github.com/tuannguyensn2001/picket-answersheet-service
